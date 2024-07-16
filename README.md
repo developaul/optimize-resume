@@ -23,7 +23,7 @@ npm install -g bun
 bun install
 ```
 
-3. Create a **.env** file with the following content:
+3. Create a **.env.local** file with the following content:
 
 > 🚧 The environment variables must match the following schema
 
@@ -41,3 +41,13 @@ OPENAI_API_KEY=
 ```bash
 bun run dev
 ```
+
+## Roadmap
+
+- [ ] Define Prompt to validate job content - Paul
+- [ ] Define Prompt to validate resume content
+- [ ] Define Prompt to generate percentage of afinity between the resume and the job
+- [ ] Define Prompt to get technical skills from the resume and the job
+- [ ] Define Prompt to get soft skills from the resume and the job
+- [ ] Define Prompt to get keywords from the resume and the job
+- [ ] Define Prompt to get general recommendations from the job
