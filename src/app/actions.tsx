@@ -36,6 +36,8 @@ export async function continueConversation(
     model: model!,
     messages: [...history.get(), { role: 'user', content: input }],
     text: ({ content, done }) => {
+      console.log('content', content)
+      console.log('done', done)
       if (done) {
         history.done((messages: ServerMessage[]) => [
           ...messages,
@@ -58,6 +60,9 @@ export async function continueConversation(
             .describe('The number of months to get historical information for'),
         }),
         generate: async ({ symbol, numOfMonths }) => {
+          console.log('symbol', symbol)
+          console.log('numOfMonths', numOfMonths)
+          
           history.done((messages: ServerMessage[]) => [
             ...messages,
             {
