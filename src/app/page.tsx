@@ -1,26 +1,55 @@
-"use client";
+'use client';
 
-import { useChat } from "ai/react";
+import { useState } from 'react';
+import { ClientMessage } from './actions';
+import { useActions, useUIState } from 'ai/rsc';
+import { generateId } from 'ai';
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+// Force the page to be dynamic and allow streaming responses up to 30 seconds
+export const dynamic = 'force-dynamic';
+export const maxDuration = 30;
+
+export default function Home() {
+  const [input, setInput] = useState<string>('');
+  const [conversation, setConversation] = useUIState();
+  const { continueConversation } = useActions();
+
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map((m) => (
-        <div key={m.id} className="whitespace-pre-wrap">
-          {m.role === "user" ? "User: " : "AI: "}
-          {m.content}
-        </div>
-      ))}
+    <div>
+      <div>
+        {conversation.map((message: ClientMessage) => (
+          <div key={message.id}>
+            {message.role}: {message.display}
+          </div>
+        ))}
+      </div>
 
-      <form onSubmit={handleSubmit}>
+      <div>
         <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl text-black"
+          type="text"
           value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
+          onChange={event => {
+            setInput(event.target.value);
+          }}
         />
-      </form>
+        <button
+          onClick={async () => {
+            setConversation((currentConversation: ClientMessage[]) => [
+              ...currentConversation,
+              { id: generateId(), role: 'user', display: input },
+            ]);
+
+            const message = await continueConversation(input);
+
+            setConversation((currentConversation: ClientMessage[]) => [
+              ...currentConversation,
+              message,
+            ]);
+          }}
+        >
+          Send Message
+        </button>
+      </div>
     </div>
   );
 }
