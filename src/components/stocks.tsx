@@ -25,8 +25,8 @@ export async function Stock({ symbol, numOfMonths }: any) {
 
       <div>
         {data.timeline.map((data, index) => (
-          <div key={index}>
-            <div>{data.date}</div>
+          <div key={index} className="bg-red-300">
+            <div className="text-fuchsia-500">{data.date}</div>
             <div>{data.value}</div>
           </div>
         ))}
