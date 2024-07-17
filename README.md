@@ -51,3 +51,14 @@ bun run dev
 - [ ] Define Prompt to get soft skills from the resume and the job
 - [ ] Define Prompt to get keywords from the resume and the job
 - [ ] Define Prompt to get general recommendations from the job
+
+
+---
+
+Se muestra un chat basico de ejemplo:
+
+Escribir: "Cual es el estado del BTC durante los ultimos 3 meses"
+-> Respondera con el componente Stocks
+
+Escribir: "Cual es el estado del vuelo 10"
+-> Respondera con el componente Flight
