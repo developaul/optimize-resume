@@ -2,6 +2,7 @@
 
 import { createAI, getMutableAIState, streamUI } from 'ai/rsc';
 import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
 import { ReactNode } from 'react';
 import { z } from 'zod';
 import { generateId } from 'ai';
@@ -10,7 +11,7 @@ import { Flight } from '@/components/flight';
 
 const model = {
   GOOGLE_GENERATIVE_AI: google('models/gemini-1.5-flash-latest'),
-  OPENAI: {},
+  OPENAI: openai("gpt-4o"),
 }[process.env.IA!]
 
 export interface ServerMessage {
@@ -32,7 +33,7 @@ export async function continueConversation(
   const history = getMutableAIState();
 
   const result = await streamUI({
-    model: google('models/gemini-1.5-flash-latest'),
+    model: model!,
     messages: [...history.get(), { role: 'user', content: input }],
     text: ({ content, done }) => {
       if (done) {
