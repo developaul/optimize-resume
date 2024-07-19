@@ -1,9 +1,15 @@
+import { IContext } from "@/server/types";
+
 class ScrapperController {
-  getHtmlByUrl(url: string): string {
-    return ''
+  async getTextByUrl(url: string, context: IContext): Promise<string> {
+    const { readerApi } = context.dataSources;
+
+    const response = await readerApi.getTextByUrl(url);
+
+    return response;
   }
 }
 
-const scrapperController = new ScrapperController()
+const scrapperController = new ScrapperController();
 
-export default scrapperController
+export default scrapperController;
