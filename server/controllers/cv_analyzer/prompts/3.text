@@ -1,0 +1,70 @@
+Eres especialista en reclutamiento y por eso te voy a pasar un currículum vitae (CV) estilo json y la descripción de una oferta de trabajo para que la evalúes y digas qué mejoras se le pueden hacer al CV para que pueda ser elegido. por esa oferta de trabajo. 
+La respuesta debe ser concisa y explicar brevemente las mejoras a realizar.
+Verificar que el plan de estudios tenga las habilidades solicitadas en la oferta, que el acerca tenga datos interesantes para el puesto y en este caso dar alguna recomendación.
+Cv: `C U R R I C U L U M       V I T A EJOSE EDUARDO AGUIÑA CARDONADomicilio        Octavio Paz No. 223Fracc. Pensadores MexicanosAguascalientes, AGS.Tel. Celular 4491446419jeac.eaa@gmail.comRESUMEN : Responsabilidad y ética profesional necesaria para cumplir con los objetivos. Capacidadpara búsqueda de nuevas expectativas medibles, iniciativa para diferentes actividades.HISTORIA LABORALMEGAGASOLINERAS S.A DE C.V IngresoFEBRERO 2023 A MAYO 2024Desarrollo el puesto de encargado de EDS (EstaciónDe Servicio), llevando acabo el manejo y control delos procesos, personal, capacitaciones, requerimientos establecidos para la operación de esta misma,control de efectivo y entrega de valores correspondientes, cortes yarqueos, ventas y prospección declientes nuevos y existentes.Con 7 meses de ingresar, continuo mis labores como GERENTE DE EDS (Estación De Servicio), teniendo acargo una estación de combustible, desarrollando actividades operativas como: control de efectivo,entrega de valores, cortes y arqueos, ventas y prospección de clientes nuevos y existentes; Además demanejar elárea administrativa como es el manejo de cuentas, nominas, atracción y retención de clientesnuevos,reclutamiento,estrategias para resultados en KPI’S, metas constantes, seguimiento a tratorecibido, manejo de plantilla, manejo de instalacionespara el correcto funcionamiento y operación,programación de mantenimiento operativo y sistemas, programación de cursos (protección civil etc…),manejo de carpetas para autoridades correspondientes (PROFECO, ASEA, PROTECCION CIVIL), recepciónde proveedores, programación y pedido de productos (COMBUSTIBLE, LUBRICANTES Y PRODUCTOS DELIPIEZA)OXXO Ingreso enfebrerodel 2020 aDiciembre 2021Formo parte de esta empresa siendo ayudante de piso, desarrollando las actividades de control demercancía,limpiezade tienda, manejo de efectivo y atención de clientes.Al cabo de 5 meses me postulo para el puesto para encargado de turno, y a la misma fecha subo de puesto,desempeñandolasactividadesanterioresmáslaatencióndepersonal,manejodevaloresyadministración de tienda,Recurridoun año, obtengo la gerencia de una tienda como “LIDER DE TIENDA” llevando el control de todauna sucursal desde temas de mercancía hasta el manejo de efectivo, entrega de valores, RH en tienda ymanejo del personal, proveedores.BASYS ingreso marzo de 2018 termino labores endiciembredel año 2020ingreso a mencionada empresa como ayudante en general, a cabo de dos meses de trabajo ycapacitación,continuo comotécnicoinstalador de seguridad ytécnicoreparador en equipos decómputoy pesaje(basculasdigitales)al paso de un año quedo como subencargado deinstalacionesy reparaciones.IMPORTEK ingreso agosto de 2017, termino de labores en noviembre de 2017.Inicio en esta empresa como instalador de sistemas, acudiendo regularmente a diferentes empresaspara laborar de acuerdo a lo requerido.PRODUCTOSDELIMPIEZAincorporaciónaempresa2016a2017La apertura de este negocio iniciando en ventas casa por casa, posteriormente como jefe de flotilla yadministrador de productos  de mercancía durante 1 año, pasando 3 meses después a encargado desucursal, con un manejo de 7 personas y control de inventariosGRUPO DE VENTAS QOHELET ingreso en 2015 a 2016Inicio en esta empresa como vendedor de servicios de cable e internet de casa por casa (cambaceo), alfinal como encargado de flotilla enla recepcióny realización de contratos para la empresa Totalplay.BODEGA AURRERA SIGLO XXI ingreso en 2012 a 2014El trabajo fue de empacador dentro de la tienda.FORMACION     TECNICO EN MANTENIMIENTO DE EQUPOS DE COMPUTO (titulo debachiller y técnico)UNIVERSIDAD (TUA, MUNICIPIO LIBRE)UNIVERSIDAD (UTA, CANTERAS)BACHILLERATO (CONALEP AGUASCAILENTES 3, VNSA)SECUENDARIA (FRIDA KAHLO, PINNTORES MEXICANOS)PRIMARIA (OCTAVIO PAZ, CUMBRES II)FECHA NACIMIENTO        24 DE FEBRERO DE 1998AGUASCALENTES, Ags.ATTE. JOSE EDUARDO AGUIÑA CARDONA,`
+Offer: `Title: JAAM DULCES: 
+            Encargado de sucursal
+
+URL Source: https://www.laborum.news/job/6675e3ccc77a390008451bb9/publication/0
+
+Markdown Content:
+#### Funciones
+
+\- Gestión y supervisión del equipo de trabajo a cargo.
+
+\- Supervisión de acomodo de mercancía.
+
+\- Elaboración de reportes de ventas.
+
+\- Atención a clientes.
+
+#### Conocimientos y Requisitos
+
+*   Servicio y atención al cliente.
+*   Administración de personal.
+*   Administración de almacenes.
+*   Gestión de la distribución de mercancías.
+*   Administración y uso de herramientas digitales básicas.
+*   Generación y análisis de reportes.
+*   Punto de venta.
+`
+
+y el resultado lo vas a retornar en el siguiente formato:
+
+const CompatibilityAssessmentSchema  = z.object({
+  /* @description: lista de todas habilidades tanto las requeridas por el puesto como las que el candidato demuestra en el curriculum */
+  skills: z.array(z.object({
+    name: z.string(),
+    type: z.enum(['technical_skills', 'soft_skill', 'technological_skills']),
+    inCv: z.boolean(),
+    isRequiredInPublication: z.boolean()
+  })),
+
+  /* @description: lista de todas palabras clave que podrian describir mejor el puesto como las palabras clave que podrian describir el curriculum. La idea es encontrar cuantas coincidencias hay entre estos 2 archivos. */
+  keywords: z.array(z.object({
+    value: z.string(),
+    inCv: z.boolean(),
+    inPublication: z.boolean()
+  })),
+
+  /* @description: lista de recomendaciones que podria darsele al candidato para escribir un mejor curriculum, por ejemplo que solo ponga cosas relevantes y le interesen al reclutador o sistemas de reclutamiento */
+  recommendations: z.array(z.object({
+    description: z.string(),
+    title: z.string()
+  })),
+
+  /* @description: lista de estudios del candidato le podrian respaldar para que calce con el puesto de trabajo */
+  education: z.array(z.object({
+    name: z.string(),
+    description: z.string()
+  })),
+
+  /* @description: en caso la lista de estudio este vacia, que temas de estudio se le recomienda al candidato para que en una proxima ocasion se le considere la mejor opcion */
+  suggestionStudy: z.array(z.string()),
+
+  /* @description: Lista de notas que el candidato deberia estar alerta antes de mandar su curriculum al aviso. Por ejemplo que considere la ubicacion, para que no trabaje en un lugar lejos, que considere si el salario es muy bajo respecto lo que espera o si el trabajo es remoto. */
+  notes: z.array(z.object({
+    type: z.enum(['low_salary', 'availability', 'location']), // reemplaza estos valores con los tipos reales de NoteType
+    description: z.string()
+  }))
+})
