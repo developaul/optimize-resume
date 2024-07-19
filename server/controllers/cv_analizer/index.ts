@@ -1,17 +1,22 @@
 import { IContext } from "@/server/types";
 import fileController from '../files'
 import scrapperController from '../scrapper'
+import UserProfileSchema from "@/server/schemas/userProfles";
+import JobPostingSchema from "@/server/schemas/job";
 
 interface AnalyzeArgs {
-  file: File;
+  fileString: string;
   publicationUrl: string;
 }
 
 class CvAnalyzerController {
-  async analyze ({ file, publicationUrl }: AnalyzeArgs, context: IContext) {
-    const cvHtml = fileController.getHtmlByFile(file)
+  async analyze ({ fileString, publicationUrl }: AnalyzeArgs, context: IContext) {
+    const cvHtml = fileController.getTextByBase64File(fileString)
 
-    const publicationHtml = scrapperController.getHtmlByUrl(publicationUrl)
+    const publicationHtml = scrapperController.getTextByUrl(publicationUrl, context)
+
+    const userProfileSchemaString = JSON.stringify(UserProfileSchema._def)
+    const jobSchemaString = JSON.stringify(JobPostingSchema._def)
 
     const prompt = `
       Eres un experto en ingeniería de prompts para ia. Te dare instrucciones en forma de código con comentarios y quiero que lo interpretes y lo transformes en un prompt.
@@ -72,6 +77,17 @@ class CvAnalyzerController {
           description: string;
         }[]
       }
+
+      ademas voy a definir los schemas de userProfileSchema y jobSchema
+
+      type UserProfileSchema = ${userProfileSchemaString}
+      type JobSchema = ${jobSchemaString}
+
+      en base a los schemas que te pase parse tanto el html del cv y el aviso.
+
+      en base a la obtencion de los datos importantes y los htmls originales
+
+      retorna el objeto de salida
     `
     // const result = await streamObject({
     //   model: openai('gpt-4-turbo'),
