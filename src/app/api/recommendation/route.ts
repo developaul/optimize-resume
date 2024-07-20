@@ -16,16 +16,16 @@ const getContext = (apiKey: string): IContext => {
 
 export async function POST(req: Request) {
   try {
+    /** Need to receive base64URI because useObject manage application/json content */
     const { apiKey, jobUrl, base64URI } = await req.json();
 
-    // Validate before generate context
+    const context = getContext(apiKey);
+
     validatorController.validateInput({
       apiKey,
       jobUrl,
       base64URI,
     });
-
-    const context = getContext(apiKey);
 
     await validatorController.validateJobAndCvContent(
       { jobUrl, base64URI },
@@ -34,6 +34,7 @@ export async function POST(req: Request) {
 
     return Response.json({ message: "ok" }, { status: 200 });
   } catch (error: any) {
+    console.log("🚀 ~ POST ~ error:", error);
     return Response.json({ message: error.message }, { status: 400 });
   }
 }
