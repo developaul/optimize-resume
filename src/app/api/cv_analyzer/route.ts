@@ -38,11 +38,8 @@ export async function POST(req: Request) {
       base64URI,
     }, context);
 
-    // return result.toTextStreamResponse()
-    return result.toJsonResponse()
-
-    
-
+    return result.toTextStreamResponse()
+    // return result.toJsonResponse()
     // return Response.json({ data: extractJson(result.text) }, { status: 200 });
   } catch (error: any) {
     console.log('error', error)

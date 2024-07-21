@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const CompatibilityAssessmentSchema  = z.object({
+const compatibilityAssessmentSchema  = z.object({
   skills: z.array(z.object({
     name: z.string(),
     types: z.array(z.object({
@@ -32,4 +32,4 @@ const CompatibilityAssessmentSchema  = z.object({
   logs: z.array(z.string())
 });
 
-export default CompatibilityAssessmentSchema 
+export default compatibilityAssessmentSchema

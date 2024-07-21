@@ -3,7 +3,7 @@ import fileController from '../files'
 import scrapperController from '../scrapper'
 import { openai } from '@ai-sdk/openai'
 import { google } from '@ai-sdk/google'
-import { generateObject, generateText } from "ai";
+import { generateObject, generateText, streamObject } from "ai";
 import CompatibilityAssessmentSchema from "@/server/schemas/compatibilityAssessment";
 
 interface AnalyzeArgs {
@@ -61,7 +61,12 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
   - suggestionStudy: // En base a los logs, lista un conjunto de temas de estudio que el candidato no respalda.
 `
 
-    const result = await generateObject({
+    // const result = await generateObject({
+    //   model: model!,
+    //   schema: CompatibilityAssessmentSchema,
+    //   prompt
+    // })
+    const result = await streamObject({
       model: model!,
       schema: CompatibilityAssessmentSchema,
       prompt
