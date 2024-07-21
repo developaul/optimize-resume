@@ -1,25 +1,19 @@
+import getContext from "@/server/context";
 import validatorController from "@/server/controllers/validator";
 import ReaderAPI from "@/server/services/ReaderAPI";
 import { IContext } from "@/server/types";
 
-// Inyeccion de dependencias
-const getContext = (apiKey: string): IContext => {
-  return {
-    headers: {
-      apiKey,
-    },
-    dataSources: {
-      readerApi: new ReaderAPI(),
-    },
-  };
-};
-
 export async function POST(req: Request) {
   try {
     /** Need to receive base64URI because useObject manage application/json content */
-    const { apiKey, jobUrl, base64URI } = await req.json();
+    const { apiKey, jobUrl, base64URI, keyType } = await req.json();
 
-    const context = getContext(apiKey);
+    const headers = {
+      apikey: apiKey,
+      keytype: keyType
+    }
+
+    const context = getContext(headers);
 
     validatorController.validateInput({
       apiKey,
