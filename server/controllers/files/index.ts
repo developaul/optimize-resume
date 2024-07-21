@@ -1,9 +1,7 @@
 import PDFParser, { Output } from "pdf2json";
 
-const pdfParser = new PDFParser();
-
 class FileController {
-  waitForPdfData = (): Promise<Output> => {
+  waitForPdfData = (pdfParser: PDFParser): Promise<Output> => {
     return new Promise((resolve, reject) => {
       pdfParser.on("pdfParser_dataError", reject);
       pdfParser.on("pdfParser_dataReady", resolve);
@@ -24,13 +22,15 @@ class FileController {
     return new File([u8arr], filename, { type: mime });
   };
 
-  // TODO: Improve the way to get the text from the PDF file
   async getTextByBase64File(base64URI: string): Promise<string> {
     const file = this.dataURLtoFile(base64URI);
     const fileArrayBuffer = await file.arrayBuffer();
+
+    const pdfParser = new PDFParser();
+
     pdfParser.parseBuffer(fileArrayBuffer as Buffer, 9);
 
-    const pdfData = await this.waitForPdfData();
+    const pdfData = await this.waitForPdfData(pdfParser);
 
     const text = pdfData.Pages.map((page) => {
       return page.Texts.map((text) => {
