@@ -24,9 +24,13 @@ function extractJson(text: string) {
 
 export async function POST(req: Request) {
   try {
-    const { apiKey, jobUrl, base64URI } = await req.json();
+    const { apiKey, jobUrl, base64URI, keyType } = await req.json();
 
-    const context = getContext(apiKey);
+    const headers = {
+      apikey: apiKey,
+      keytype: keyType
+    }
+    const context = getContext(headers);
 
     // Validate before generate context
     const result = await cvAnalyzerController.analyze({
@@ -35,11 +39,11 @@ export async function POST(req: Request) {
     }, context);
 
     // return result.toTextStreamResponse()
-    // return result.toJsonResponse()
+    return result.toJsonResponse()
 
     
 
-    return Response.json({ data: extractJson(result.text) }, { status: 200 });
+    // return Response.json({ data: extractJson(result.text) }, { status: 200 });
   } catch (error: any) {
     console.log('error', error)
     return Response.json({ message: error.message }, { status: 500 });

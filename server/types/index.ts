@@ -6,7 +6,8 @@ import CompatibilityAssessmentSchema from "../schemas/compatibilityAssessment";
 
 export type IContext = {
   headers: {
-    apiKey: string;
+    apikey: string;
+    keytype: string;
   };
   dataSources: {
     readerApi: ReaderAPI;

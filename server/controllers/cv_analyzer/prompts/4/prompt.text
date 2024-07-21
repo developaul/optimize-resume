@@ -29,43 +29,24 @@ Markdown Content:
 *   Punto de venta.
 `
 
-y el resultado lo vas a retornar en el siguiente formato como json, leer la descripcion de cada campo:
+y el resultado lo vas a retornar en el siguiente formato como json, analizalo y hazlo paso a paso.
 
-const CompatibilityAssessmentSchema  = z.object({
-  /* @description: Lista de habilidades requeridas y si están presentes en el CV. */
-  skills: z.array(z.object({
-    name: z.string(),
-    type: z.enum(['technical_skills', 'soft_skill', 'technological_skills']),
-    inCv: z.boolean(),
-    isRequiredInPublication: z.boolean()
-  })),
+## Reglas a evitar enviar como respuesta:
+  - Evitar uso de "etc"
+  - Tratar de retornar los skills, keywords, recommendations, education, suggestionStudy, notes
 
-  /* @description: Lista de palabras clave presentes en la oferta y en el CV. */
-  keywords: z.array(z.object({
-    value: z.string(),
-    inCv: z.boolean(),
-    inPublication: z.boolean()
-  })),
+**Descripcion de los datos que se solicita**
 
-  /* @description: Recomendaciones para mejorar el CV. */
-  recommendations: z.array(z.object({
-    description: z.string(),
-    title: z.string()
-  })),
+  - skills: // Lista de habilidades requeridas por el puesto.
+    - inCv: // Si la habilidad esta en el (CV)
+    - isRequiredInPublication: // Si la habilidad esta en la oferta de trabajo.
 
-  /* @description: Lista de estudios del candidato que respaldan el puesto. */
-  education: z.array(z.object({
-    name: z.string(),
-    /* @description: Describe como este estudio respalda un requerimiento del puesto */
-    description: z.string()
-  })),
+  - keywords: // Lista de palabras clave presentes en la oferta y en el CV. En base a este numero de coincidencias, calcularemos un porcentaje de match entre el CV y la oferta de trabajo.
 
-  /* @description: Sugerencias de estudio para el candidato. */
-  suggestionStudy: z.array(z.string()),
+  - recommendations: // Recomendaciones para mejorar el CV. Por ejemplo: describir mejor su experiencia laboral, su desempeño. Mejorar su redaccion en las experiencias o educacion. Omision de posible habilidad de trabajo adquirido para calzar mejor con un requerimiento de la oferta de trabajo, etc.
 
-  /* @description: Notas adicionales que el candidato debe tener en cuenta. */
-  notes: z.array(z.object({
-    type: z.enum(['low_salary', 'availability', 'location']), // reemplaza estos valores con los tipos reales de NoteType
-    description: z.string()
-  }))
-})
+  - education: // Lista de estudios del candidato que respaldan el puesto que avalen el requerimiento solicitado por la oferta de trabajo.
+
+  - suggestionStudy: // Sugerencias de estudio para el candidato. Por si le falta alguna habilidad, se le recomienda temas de estudio para que pueda mejorar su perfil profesional.
+
+  - notes: // Notas adicionales que el candidato debe tener en cuenta, como por ejemplo: El salario de la oferta de trabajo es muy bajo respecto a lo solicitado del CV, el lugar de trabajo se encuentra en cierto lugar y se aleja mucho de la direccion del candidato, el tipo de trabajo que se solicita (full_time, part_time, remoto, etc)

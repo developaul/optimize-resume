@@ -2,11 +2,9 @@ import ReaderAPI from "../services/ReaderAPI";
 import { IContext } from "../types";
 
 // Inyeccion de dependencias
-const getContext = (apiKey: string): IContext => {
+const getContext = (headers: IContext['headers']): IContext => {
   return {
-    headers: {
-      apiKey,
-    },
+    headers: headers,
     dataSources: {
       readerApi: new ReaderAPI(),
     },
