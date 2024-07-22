@@ -1,0 +1,45 @@
+You are a recruitment specialist and so I am going to pass you a json-style curriculum vitae (CV) and the description of a job offer for you to evaluate it and say what improvements can be made to the CV so that it can be chosen for that job offer. 
+The response should be concise and briefly explain the improvements to be made.
+Check that the curriculum has the skills requested in the offer, that the about has interesting data for the position and in this case give some recommendation.
+Cv: \`${cvHtml}\`
+Offer: \`${publicationHtml}\`
+
+y el resultado lo vas a retornar en el siguiente formato:
+
+const CompatibilityAssessmentSchema  = z.object({
+  # lista de todas habilidades tanto las requeridas por el puesto como las que el candidato demuestra en el curriculum
+  skills: z.array(z.object({
+    name: z.string(),
+    type: z.enum(['technical_skills', 'soft_skill', 'technological_skills']),
+    inCv: z.boolean(),
+    isRequiredInPublication: z.boolean()
+  })),
+
+  # lista de todas palabras clave que podrian describir mejor el puesto como las palabras clave que podrian describir el curriculum. La idea es encontrar cuantas coincidencias hay entre estos 2 archivos.
+  keywords: z.array(z.object({
+    value: z.string(),
+    inCv: z.boolean(),
+    inPublication: z.boolean()
+  })),
+
+  # lista de recomendaciones que podria darsele al candidato para escribir un mejor curriculum, por ejemplo que solo ponga cosas relevantes y le interesen al reclutador o sistemas de reclutamiento
+  recommendations: z.array(z.object({
+    description: z.string(),
+    title: z.string()
+  })),
+
+  # lista de estudios del candidato le podrian respaldar para que calce con el puesto de trabajo
+  education: z.array(z.object({
+    name: z.string(),
+    description: z.string()
+  })),
+
+  # en caso la lista de estudio este vacia, que temas de estudio se le recomienda al candidato para que en una proxima ocasion se le considere la mejor opcion
+  suggestionStudy: z.array(z.string()),
+
+  # Lista de notas que el candidato deberia estar alerta antes de mandar su curriculum al aviso. Por ejemplo que considere la ubicacion, para que no trabaje en un lugar lejos, que considere si el salario es muy bajo respecto lo que espera o si el trabajo es remoto.
+  notes: z.array(z.object({
+    type: z.enum(['low_salary', 'availability', 'location']), // reemplaza estos valores con los tipos reales de NoteType
+    description: z.string()
+  }))
+})
