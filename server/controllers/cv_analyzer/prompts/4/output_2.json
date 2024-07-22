@@ -1,0 +1,105 @@
+{
+	"skills": [
+		{
+			"name": "Servicio y atención al cliente",
+			"type": "soft_skill",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Administración de personal",
+			"type": "soft_skill",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Administración de almacenes",
+			"type": "technical_skills",
+			"inCv": false,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Gestión de la distribución de mercancías",
+			"type": "technical_skills",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Administración y uso de herramientas digitales básicas",
+			"type": "technical_skills",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Generación y análisis de reportes",
+			"type": "technical_skills",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Punto de venta",
+			"type": "technical_skills",
+			"inCv": true,
+			"isRequiredInPublication": true
+		}
+	],
+	"keywords": [
+		{
+			"value": "atención al cliente",
+			"inCv": true,
+			"inPublication": true
+		},
+		{
+			"value": "administración de personal",
+			"inCv": true,
+			"inPublication": true
+		},
+		{
+			"value": "reportes",
+			"inCv": true,
+			"inPublication": true
+		},
+		{
+			"value": "ventas",
+			"inCv": true,
+			"inPublication": true
+		}
+	],
+	"recommendations": [
+		{
+			"description": "Mencionar explícitamente la experiencia en administración de almacenes adquirida en OXXO y MeGaGasolineras, detallando responsabilidades y logros.",
+			"title": "Mejorar la descripción de la experiencia laboral"
+		},
+		{
+			"description": "Resaltar las habilidades de liderazgo y gestión de equipos desarrolladas en OXXO y MeGaGasolineras, proporcionando ejemplos concretos.",
+			"title": "Enfatizar habilidades de liderazgo"
+		},
+		{
+			"description": "Incluir una sección de habilidades donde se listen de forma concisa las habilidades relevantes para el puesto, como atención al cliente, administración de personal, etc.",
+			"title": "Agregar una sección de habilidades"
+		},
+		{
+			"description": "Adaptar el lenguaje del CV al de la oferta de trabajo, utilizando palabras clave que se mencionen en la descripción del puesto.",
+			"title": "Optimizar el CV con palabras clave"
+		}
+	],
+	"education": [
+		{
+			"name": "Administración de almacenes",
+			"description": "No se menciona en el CV experiencia en administración de almacenes, pero su experiencia en OXXO y MeGaGasolineras sugiere que puede tener conocimientos en la gestión de inventarios y almacenamiento."
+		},
+		{
+			"name": "Gestión y Supervisión de equipos de trabajo",
+			"description": "Su experiencia en OXXO y MeGaGasolineras es relevante para el puesto de Encargado de Sucursal."
+		},
+		{
+			"name": "Servicio y atención al cliente",
+			"description": "Si bien no se detalla en el CV, su experiencia previa en roles de atención al cliente en OXXO y MeGaGasolineras indican que posee esta habilidad."
+		}
+	],
+	"suggestionStudy": [
+		"Cursos online o presenciales sobre administración de almacenes y gestión de inventarios.",
+		"Certificaciones en gestión de almacenes y logística."
+	],
+	"notes": []
+}

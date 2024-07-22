@@ -1,0 +1,101 @@
+{
+	"skills": [
+		{
+			"name": "Servicio y atención al cliente",
+			"type": "soft_skill",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Administración de personal",
+			"type": "soft_skill",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Administración de almacenes",
+			"type": "technical_skills",
+			"inCv": false,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Gestión de la distribución de mercancías",
+			"type": "technical_skills",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Administración y uso de herramientas digitales básicas",
+			"type": "technical_skills",
+			"inCv": false,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Generación y análisis de reportes",
+			"type": "technical_skills",
+			"inCv": true,
+			"isRequiredInPublication": true
+		},
+		{
+			"name": "Punto de venta",
+			"type": "technical_skills",
+			"inCv": false,
+			"isRequiredInPublication": true
+		}
+	],
+	"keywords": [
+		{
+			"value": "atención al cliente",
+			"inCv": true,
+			"inPublication": true
+		},
+		{
+			"value": "administración de personal",
+			"inCv": true,
+			"inPublication": true
+		},
+		{
+			"value": "ventas",
+			"inCv": true,
+			"inPublication": true
+		},
+		{
+			"value": "reportes",
+			"inCv": true,
+			"inPublication": true
+		}
+	],
+	"recommendations": [
+		{
+			"description": "Destacar en el resumen las habilidades de servicio al cliente y administración, mencionando ejemplos concretos de su experiencia.",
+			"title": "Mejorar Resumen"
+		},
+		{
+			"description": "Mencionar herramientas digitales específicas utilizadas en sus experiencias laborales previas, como sistemas de gestión de inventarios o puntos de venta.",
+			"title": "Ampliar información sobre herramientas digitales"
+		},
+		{
+			"description": "Cuantificar los logros obtenidos en sus experiencias laborales, como porcentaje de aumento en ventas o reducción de costos.",
+			"title": "Cuantificar logros"
+		},
+		{
+			"description": "Reorganizar la información cronológicamente, comenzando por la experiencia laboral más reciente.",
+			"title": "Organización cronológica"
+		}
+	],
+	"education": [
+		{
+			"name": "ADMINISTRACIÓN DE ALMACENES",
+			"description": "No se menciona en el CV experiencia en administración de almacenes, pero su experiencia en manejo de inventarios en empresas como \\\"PRODUCTOS DEL IMPLEZA\\\" y \\\"OXXO\\\" podrían ser relevantes."
+		},
+		{
+			"name": "GESTIÓN DE LA DISTRIBUCIÓN DE MERCANCÍAS",
+			"description": "Si bien no se detalla en el CV experiencia en herramientas digitales para la gestión de la distribución de mercancías, su experiencia en empresas con manejo de inventarios y logística como  \\\"OXXO\\\"  y \\\"PRODUCTOS DEL IMPLEZA\\\"  podrían ser útiles."
+		}
+	],
+	"suggestionStudy": [
+		"Cursos online sobre administración de almacenes",
+		"Capacitaciones en el uso de herramientas digitales para la gestión de almacenes y puntos de venta"
+	],
+	"notes": []
+}
