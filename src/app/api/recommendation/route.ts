@@ -10,8 +10,8 @@ export async function POST(req: Request) {
 
     const headers = {
       apikey: apiKey,
-      keytype: keyType
-    }
+      keytype: keyType,
+    };
 
     const context = getContext(headers);
 
