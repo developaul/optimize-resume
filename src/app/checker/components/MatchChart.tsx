@@ -14,8 +14,13 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function MatchPosition() {
+interface MatchChartProps {
+  isLoading?: boolean;
+}
+
+export default function MatchChart({ isLoading = false }: MatchChartProps) {
   const data = [{ name: "result", value: 50, fill: "var(--color-result)" }];
 
   const chartConfig = {
@@ -25,13 +30,23 @@ export default function MatchPosition() {
     },
   } satisfies ChartConfig;
 
+  const Loader = () => {
+    return (
+      <div className="flex justify-center mb-4">
+        <Skeleton className="w-40 h-40 rounded-full bg-gray-200" />
+      </div>
+    );
+  };
+
   return (
-    <>
-      <Card className="flex flex-col">
-        <CardHeader className="items-center pb-0">
-          <h2 className="h2 text-center">Conicidencia con el puesto</h2>
-        </CardHeader>
-        <CardContent className="flex-1 pb-0">
+    <Card className="flex flex-col shadow-md rounded-xl">
+      <CardHeader className="items-center pb-0">
+        <h2 className="h2 text-center">Conicidencia con el puesto</h2>
+      </CardHeader>
+      <CardContent className="flex-1 pb-0">
+        {isLoading ? (
+          <Loader />
+        ) : (
           <ChartContainer
             config={chartConfig}
             className="mx-auto aspect-square max-h-[250px]"
@@ -84,11 +99,15 @@ export default function MatchPosition() {
               </PolarRadiusAxis>
             </RadialBarChart>
           </ChartContainer>
-        </CardContent>
-        <CardFooter className="flex-col gap-2 text-sm">
+        )}
+      </CardContent>
+      <CardFooter className="flex-col gap-2 text-sm">
+        {isLoading ? (
+          <Skeleton className="w-56 h-5 rounded-full bg-gray-200" />
+        ) : (
           <small className="small">Puede mejorar</small>
-        </CardFooter>
-      </Card>
-    </>
+        )}
+      </CardFooter>
+    </Card>
   );
 }
