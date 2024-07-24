@@ -35,8 +35,8 @@ class ValidatorController {
       fileController.getTextByBase64File(base64URI),
     ]);
 
-    const { apiKey } = context.headers;
-    const openai = createOpenAI({ apiKey });
+    const { apikey } = context.headers;
+    const openai = createOpenAI({ apiKey: apikey });
     const model = openai("gpt-4o");
 
     // TODO: Improve the prompt to validate the content

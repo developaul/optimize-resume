@@ -10,18 +10,20 @@ const UserProfileSchema = z.object({
     linkedin: z.string().url().optional(),
     github: z.string().url().optional()
   }),
-  education: z.array(z.object({
+  educations: z.array(z.object({
     institution: z.string(),
     degree: z.string(),
     fieldOfStudy: z.string().optional(),
     startDate: z.string(),
+    description: z.string(),
     endDate: z.string().optional(),
     currentStatus: z.enum(['GRADUATED', 'IN_PROGRESS', 'DROPPED_OUT']).optional()
   })),
-  workExperience: z.array(z.object({
+  workExperiences: z.array(z.object({
     company: z.string(),
     position: z.string(),
     startDate: z.string(),
+    description: z.string(),
     endDate: z.string().optional(),
     currentlyWorking: z.boolean().default(false),
     responsibilities: z.array(z.string())

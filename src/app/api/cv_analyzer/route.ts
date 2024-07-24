@@ -1,26 +1,15 @@
 import getContext from "@/server/context";
 import cvAnalyzerController from "@/server/controllers/cv_analyzer";
 
-
-function extractJson(text: string) {
-  // Utilizamos una expresión regular para encontrar el bloque de JSON
-  const jsonRegex = /```json\n([\s\S]*?)\n```/;
-  const match = text.match(jsonRegex);
-
-  if (match && match[1]) {
-    try {
-      // Intentamos parsear el JSON
-      const jsonObject = JSON.parse(match[1]);
-      return jsonObject;
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
-      return null;
-    }
-  } else {
-    console.error('No JSON block found in the text');
-    return null;
-  }
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '1mb',
+    },
+    responseLimit: false,
+  },
 }
+
 
 export async function POST(req: Request) {
   try {
