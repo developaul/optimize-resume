@@ -1,12 +1,14 @@
-import React, { FC } from "react";
-import {
-  IEducation,
-  ILanguages,
-  IPersonalInfo,
-  ISkills,
-  IWorkExperience,
-  UserProfile,
-} from "@/server/types";
+"use client";
+
+import { UserProfile } from "@/server/types";
+
+import WorkExperiences from "./components/WorkExperiences";
+import PersonalInfo from "./components/PersonalInfo";
+import Educations from "./components/Educations";
+import Languages from "./components/Languages";
+import Skills from "./components/Skills";
+
+import { LanguageProvider } from "./providers";
 
 const profile: UserProfile = {
   personalInfo: {
@@ -84,163 +86,30 @@ const profile: UserProfile = {
       level: "BEGINNER",
     },
   ],
+  targetLanguage: "ENGLISH",
 } as UserProfile;
 
-/** TODO: Move each component to its own file and create generic components to reuse them in each component */
 const CVPage = () => {
-  const { personalInfo, workExperience, education, skills, languages } =
-    profile;
+  const {
+    personalInfo,
+    workExperience,
+    education,
+    skills,
+    languages,
+    targetLanguage,
+  } = profile;
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-      <PersonalInfo {...personalInfo} />
-      <WorkExperience workExperience={workExperience} />
-      <Education education={education} />
-      <Skills skills={skills} />
-      <Languages languages={languages} />
-    </main>
+    <LanguageProvider language={targetLanguage}>
+      <main className="max-w-5xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <PersonalInfo {...personalInfo} />
+        <WorkExperiences workExperiences={workExperience} />
+        <Educations educations={education} />
+        <Skills skills={skills} />
+        <Languages languages={languages} />
+      </main>
+    </LanguageProvider>
   );
 };
 
 export default CVPage;
-
-const PersonalInfo: FC<IPersonalInfo> = ({
-  firstName,
-  lastName,
-  email,
-  phone,
-  address,
-  linkedin,
-  description,
-}) => {
-  return (
-    <section>
-      <h1 className="text-3xl font-bold text-center">
-        {firstName} {lastName}
-      </h1>
-      <p className="text-center">
-        {address} · {linkedin} · {phone} · {email}
-      </p>
-
-      <hr className="my-2 h-0.5 bg-black" />
-
-      <p>{description}</p>
-    </section>
-  );
-};
-
-const WorkExperience: FC<{ workExperience: IWorkExperience }> = ({
-  workExperience,
-}) => {
-  return (
-    <section className="mt-4">
-      <h2 className="text-2xl font-bold">Experiencia Profesional</h2>
-
-      <hr className="my-2 h-0.5 bg-black" />
-
-      {workExperience.map(
-        ({
-          company,
-          position,
-          startDate,
-          endDate,
-          location,
-          responsibilities,
-        }) => (
-          <article className="mt-2" key={`${company}-${position}-${startDate}`}>
-            <header className="flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">{company}</h3>
-                <p>{position}</p>
-              </div>
-
-              <div>
-                <p className="text-sm font-semibold">{location}</p>
-                <p>
-                  {startDate} - {endDate}
-                </p>
-              </div>
-            </header>
-
-            <ul className="list-disc ml-8 mt-2">
-              {responsibilities.map((responsibility, index) => (
-                <li key={index}>{responsibility}</li>
-              ))}
-            </ul>
-          </article>
-        )
-      )}
-    </section>
-  );
-};
-
-const Education: FC<{ education: IEducation }> = ({ education }) => {
-  return (
-    <section className="mt-4">
-      <h2 className="text-2xl font-bold">Educacion</h2>
-
-      <hr className="my-2 h-0.5 bg-black" />
-
-      {education.map(
-        ({ degree, institution, location, startDate, endDate }) => (
-          <article
-            className="mt-2 flex items-center justify-between"
-            key={`${institution}-${degree}-${startDate}`}
-          >
-            <div>
-              <h3 className="text-xl font-semibold">{institution}</h3>
-              <p>{degree}</p>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold">{location}</p>
-              <p>
-                {startDate} - {endDate}
-              </p>
-            </div>
-          </article>
-        )
-      )}
-    </section>
-  );
-};
-
-export const Skills: FC<{ skills: ISkills }> = ({ skills }) => {
-  return (
-    <section className="mt-4">
-      <h2 className="text-2xl font-bold">Habilidades</h2>
-
-      <hr className="my-2 h-0.5 bg-black" />
-
-      <ul className="list-disc ml-8 mt-2">
-        {skills.map(({ level, name }, index) => (
-          <li key={index}>
-            <p>
-              <span>{name}</span> - <span>{level}</span>
-            </p>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-};
-
-export const Languages: FC<{ languages: ILanguages }> = ({ languages }) => {
-  return (
-    <section className="mt-4">
-      <h2 className="text-2xl font-bold">Idiomas</h2>
-
-      <hr className="my-2 h-0.5 bg-black" />
-
-      <ul className="list-disc ml-8 mt-2">
-        {languages.map(({ level, name }) => (
-          <li key={`${name}-${level}`}>
-            <p>
-              <span>{name}</span> - <span>{level}</span>
-            </p>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-};
