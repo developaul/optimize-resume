@@ -16,11 +16,6 @@ export type IContext = {
   };
 };
 
-
-export type UserProfile = z.infer<typeof UserProfileSchema>
-export type Job = z.infer<typeof JobPostingSchema>
-export type CompatibilityAssessment = z.infer<typeof CompatibilityAssessmentSchema>
-
 export enum SkillType {
   TECHNICAL_SKILLS = 'TECHNICAL_SKILLS',
   SOFT_SKILLS = 'SOFT_SKILLS',
@@ -78,3 +73,27 @@ export const SkillConfigs = [
 ]
 
 export const skillConfigBy = keyBy(SkillConfigs, ({ type }) => type)
+export type UserProfile = z.infer<typeof UserProfileSchema>;
+export type IPersonalInfo = z.infer<
+  typeof UserProfileSchema.shape.personalInfo
+>;
+export type IWorkExperiences = z.infer<
+  typeof UserProfileSchema.shape.workExperiences
+>;
+export type IWorkExperience = z.infer<
+  typeof UserProfileSchema.shape.workExperiences.element
+>;
+export type IEducations = z.infer<typeof UserProfileSchema.shape.educations>;
+export type IEducation = z.infer<
+  typeof UserProfileSchema.shape.educations.element
+>;
+export type ISkills = z.infer<typeof UserProfileSchema.shape.skills>;
+export type ISkill = z.infer<typeof UserProfileSchema.shape.skills.element>;
+export type ILanguages = z.infer<typeof UserProfileSchema.shape.languages>;
+export type ILanguage = z.infer<
+  typeof UserProfileSchema.shape.languages.element
+>;
+export type Job = z.infer<typeof JobPostingSchema>;
+export type CompatibilityAssessment = z.infer<
+  typeof CompatibilityAssessmentSchema
+>;
