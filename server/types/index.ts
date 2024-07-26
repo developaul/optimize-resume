@@ -102,4 +102,5 @@ export type PartialObject<T> = {
   [P in keyof T]?: T[P] extends object ? PartialObject<T[P]> : T[P];
 };
 
+export type UMaybe<T> = T | undefined;
 export type Maybe<T> = T | null | undefined;

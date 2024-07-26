@@ -34,7 +34,7 @@ export default function RootPage() {
     <form onSubmit={handleSubmit}>
       <h1>This page is just for testing useObject</h1>
 
-      <input type="text" name="apiKey" placeholder="Escribe api_key"/>
+      <input type="text" name="apiKey" placeholder="Escribe api_key" />
 
       <input type="file" name="file" accept="application/pdf" />
 

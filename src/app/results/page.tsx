@@ -25,9 +25,17 @@ export default function ResultPage() {
     schema: compatibilityAssessmentSchema,
   });
 
-  const [apiKey] = useLocalStorage<Maybe<string>>('api_key', null)
-  const [jobUrl] = useLocalStorage<Maybe<string>>('jobUrl', null)
-  const [base64URI] = useLocalStorage<Maybe<string>>('base64URI', null)
+  const [apiKey, , removeApiKey] = useLocalStorage<Maybe<string>>('api_key', null)
+  const [jobUrl, , removeJobUrl] = useLocalStorage<Maybe<string>>('jobUrl', null)
+  const [base64URI, , removeBase64URI] = useLocalStorage<Maybe<string>>('base64URI', null)
+
+  const _handleReset = () => {
+    removeJobUrl()
+    removeBase64URI()
+    removeApiKey()
+
+    router.push('/')
+  }
 
   useEffect(() => {
     const paramsValid = Boolean(apiKey && jobUrl && base64URI)
@@ -66,7 +74,7 @@ export default function ResultPage() {
 							/>
           </section>
         </div>
-        <ActionFooter />
+        <ActionFooter onReset={_handleReset}/>
       </div>
     </div>
   );
