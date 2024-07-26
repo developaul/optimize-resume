@@ -97,3 +97,9 @@ export type Job = z.infer<typeof JobPostingSchema>;
 export type CompatibilityAssessment = z.infer<
   typeof CompatibilityAssessmentSchema
 >;
+
+export type PartialObject<T> = {
+  [P in keyof T]?: T[P] extends object ? PartialObject<T[P]> : T[P];
+};
+
+export type Maybe<T> = T | null | undefined;

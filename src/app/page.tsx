@@ -1,26 +1,46 @@
 "use client";
 
-import { useChat } from "ai/react";
+import { useRouter } from "next/navigation";
+import { useLocalStorage } from "usehooks-ts";
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+import { fileToBase64 } from "@/lib/utils";
+import { Maybe } from "@/server/types";
+
+export default function RootPage() {
+  const router = useRouter();
+
+  const [, setApiKey] = useLocalStorage<Maybe<string>>('api_key', null)
+  const [, setJobUrl] = useLocalStorage<Maybe<string>>('jobUrl', null)
+  const [, setBase64URI] = useLocalStorage<Maybe<string>>('base64URI', null)
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+
+    const file = formData.get("file") as File;
+    const apiKey = formData.get("apiKey") as string;
+    const jobUrl = formData.get("jobUrl") as string;
+
+    const base64URI = await fileToBase64(file);
+
+    setApiKey(() => apiKey)
+    setJobUrl(() => jobUrl)
+    setBase64URI(() => base64URI)
+
+    router.push('/results')
+  };
+
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map((m) => (
-        <div key={m.id} className="whitespace-pre-wrap">
-          {m.role === "user" ? "User: " : "AI: "}
-          {m.content}
-        </div>
-      ))}
+    <form onSubmit={handleSubmit}>
+      <h1>This page is just for testing useObject</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl text-black"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-        />
-      </form>
-    </div>
+      <input type="text" name="apiKey" placeholder="Escribe api_key"/>
+
+      <input type="file" name="file" accept="application/pdf" />
+
+      <input type="text" name="jobUrl" placeholder="Escribe url de aviso"/>
+
+      <button type="submit">Generate</button>
+    </form>
   );
 }

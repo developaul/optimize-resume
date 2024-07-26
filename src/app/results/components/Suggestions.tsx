@@ -1,4 +1,4 @@
-import { CompatibilityAssessment } from "@/server/types";
+import { CompatibilityAssessment, PartialObject } from "@/server/types";
 import { FC } from "react";
 
 interface SectionProps {
@@ -25,9 +25,9 @@ function Section({
 }
 
 interface SuggestionsProps {
-  workExperiences: CompatibilityAssessment['workExperiences'],
-  educations: CompatibilityAssessment['educations'],
-  suggestionStudy: CompatibilityAssessment['suggestionStudy'],
+  workExperiences: PartialObject<CompatibilityAssessment['workExperiences']>,
+  educations: PartialObject<CompatibilityAssessment['educations']>,
+  suggestionStudy: PartialObject<CompatibilityAssessment['suggestionStudy']>,
 }
 
 const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, suggestionStudy }) => {
@@ -41,12 +41,12 @@ const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, sugges
           {workExperiences.map((workExperience) => {
             return (
               <Section
-                key={workExperience.position}
-                primary={workExperience.position}
-                secondary={`${workExperience.company} | Febrero 2023 - Actualidad`}
+                key={workExperience?.position}
+                primary={workExperience?.position ?? 'Sin Nombre'}
+                secondary={`${workExperience?.company} | Febrero 2023 - Actualidad`}
                 achievements={[
-                  workExperience.description
-                ]}
+                  workExperience?.description ?? ''
+                ].filter(Boolean)}
               />
             )  
           })}
@@ -61,12 +61,12 @@ const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, sugges
           {educations.map((education) => {
             return (
               <Section
-                key={education.degree}
-                primary={education.degree}
-                secondary={`${education.institution} | Febrero 2023 - Actualidad`}
+                key={education?.degree}
+                primary={education?.degree ?? 'Sin nombre'}
+                secondary={`${education?.institution} | Febrero 2023 - Actualidad`}
                 achievements={[
-                  education.description
-                ]}
+                  education?.description ?? ''
+                ].filter(Boolean)}
               />
             )  
           })}

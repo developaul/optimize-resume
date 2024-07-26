@@ -1,4 +1,4 @@
-import { CompatibilityAssessment } from "@/server/types";
+import { CompatibilityAssessment, PartialObject } from "@/server/types";
 import { FC } from "react";
 
 function TabItem({ label }: { label: string }) {
@@ -10,7 +10,7 @@ function TabItem({ label }: { label: string }) {
 }
 
 interface ImportantToKnowProps {
-  notes: CompatibilityAssessment['notes']
+  notes: PartialObject<CompatibilityAssessment['notes']>
 }
 
 const ImportantToKnow: FC<ImportantToKnowProps> = ({ notes = [] }) => {
@@ -21,7 +21,7 @@ const ImportantToKnow: FC<ImportantToKnowProps> = ({ notes = [] }) => {
       <h4 className="h4 mb-2">Detalles:</h4>
       <div className="flex flex-wrap gap-2 ">
         {notes.map((note) => {
-          return <TabItem label={note.type} key={`Note-${note.type}-${note.description}`} />
+          return <TabItem label={note!.type!} key={`Note-${note?.type}-${note?.description}`} />
         })}
       </div>
     </div>

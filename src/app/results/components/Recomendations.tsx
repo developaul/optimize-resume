@@ -1,8 +1,8 @@
-import { CompatibilityAssessment } from "@/server/types";
+import { CompatibilityAssessment, PartialObject } from "@/server/types";
 import { FC } from "react";
 
 interface RecomendationsProps {
-  recommendations: CompatibilityAssessment['recommendations']
+  recommendations: PartialObject<CompatibilityAssessment['recommendations']>
 }
 
 const Recomendations: FC<RecomendationsProps> = ({ recommendations }) => {
@@ -12,8 +12,8 @@ const Recomendations: FC<RecomendationsProps> = ({ recommendations }) => {
       <ul className="list-disc px-4">
         {recommendations.map((recommendation) => {
           return (
-            <li key={`Recommendation-${recommendation.title}`}>
-              <strong>{recommendation.title}</strong>: {recommendation.description}
+            <li key={`Recommendation-${recommendation?.title}`}>
+              <strong>{recommendation?.title}</strong>: {recommendation?.description}
             </li>
           )
         })}
