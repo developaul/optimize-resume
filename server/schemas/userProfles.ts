@@ -10,6 +10,7 @@ const UserProfileSchema = z.object({
     address: z.string().optional(),
     linkedin: z.string().url().optional(),
     github: z.string().url().optional(),
+    portfolio: z.string().url().optional(),
   }),
   education: z.array(
     z.object({
@@ -61,6 +62,8 @@ const UserProfileSchema = z.object({
       level: z.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED", "NATIVE"]),
     })
   ),
+  // Language of the work that the user applies.
+  targetLanguage: z.enum(["ENGLISH", "SPANISH"]),
 });
 
 export default UserProfileSchema;

@@ -8,7 +8,7 @@ import ActionFooter from "./components/ActionFooter";
 import { Separator } from "@/components/ui/separator";
 
 export default function Checker() {
-  const isLoading = true;
+  const isLoading = false;
 
   return (
     <div className="bg-gray-50 p-4 h-screen overflow-auto">
