@@ -73,8 +73,6 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
       schema: CompatibilityAssessmentSchema,
       prompt
     })
-
-    // console.log('result', result.object)
   
     return result
   }
