@@ -18,7 +18,7 @@ const model = {
 
 class CvAnalyzerController {
   async analyze ({ base64URI, jobUrl }: AnalyzeArgs, context: IContext) {
-    const cvHtml = await fileController.getTextByBase64File(base64URI)
+    const cvHtml = await fileController.convertBase64PdfToText(base64URI)
 
     const publicationHtml = await scrapperController.getTextByUrl(jobUrl, context)
     
@@ -39,6 +39,7 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
   - Valida paso a paso si la skill se encuentra en el CV del candidato.
   - Tratar de retornar los skills, keywords, recommendations, education, suggestionStudy, notes
   - Una vez tengas listo la respuesta, analiza si la respuesta esta bien, junto a los logs. Y en base a ello, corrige tu respuesta antes de retornar.
+  - Las fechas en formato: ISODate
 
 # Descripcion de los datos que se solicita
 
@@ -50,9 +51,15 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
 
   - keywords: // Lista de palabras clave presentes en la oferta y en el CV. En base a este numero de coincidencias, calcularemos un porcentaje de match entre el CV y la oferta de trabajo.
 
-  - recommendations: // Recomendaciones para mejorar el CV. Por ejemplo: describir mejor su experiencia laboral, su desempeño. Mejorar su redaccion en las experiencias o educacion. Omision de posible habilidad de trabajo adquirido para calzar mejor con un requerimiento de la oferta de trabajo, etc.
+  - recommendations: /* 
+    Recomendaciones para mejorar el CV. Por ejemplo: describir mejor su experiencia laboral, su desempeño. Mejorar su redaccion en las experiencias o educacion. Omision de posible habilidad de trabajo adquirido para calzar mejor con un requerimiento de la oferta de trabajo, etc.
+    Ademas, estas recomendaciones deben ser descritas de forma consisa y breve.
+  */
 
-  - education: // Lista de estudios del candidato que respaldan su habilidad tecnica o tecnologica
+  - educations: // Busca de la lista de estudios que tiene el CV, que sean relevantes resaltar en la oferta de trabajo
+    - description: // debe indicar porque el estudio es relevante para la oferta de trabajo con una excelente redaccion
+  - workExperiences: // Busca de la lista de experiencia de trabajo que tiene el CV, que sean relevantes resaltar en la oferta de trabajo
+    - description: // debe indicar porque dicha experiencia es relevante para la oferta de trabajo con una excelente redaccion
 
   - notes: // Notas adicionales que el candidato debe tener en cuenta, como por ejemplo: El salario de la oferta de trabajo es muy bajo respecto a lo solicitado del CV, el lugar de trabajo se encuentra en cierto lugar y se aleja mucho de la direccion del candidato, el tipo de trabajo que se solicita (full_time, part_time, remoto, etc)
 
@@ -61,11 +68,6 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
   - suggestionStudy: // En base a los logs, lista un conjunto de temas de estudio que el candidato no respalda.
 `
 
-    // const result = await generateObject({
-    //   model: model!,
-    //   schema: CompatibilityAssessmentSchema,
-    //   prompt
-    // })
     const result = await streamObject({
       model: model!,
       schema: CompatibilityAssessmentSchema,

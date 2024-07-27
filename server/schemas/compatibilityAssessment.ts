@@ -20,9 +20,23 @@ const compatibilityAssessmentSchema  = z.object({
     description: z.string(),
     title: z.string()
   })),
-  education: z.array(z.object({
-    name: z.string(),
-    description: z.string()
+  educations: z.array(z.object({
+    institution: z.string(),
+    degree: z.string(),
+    fieldOfStudy: z.string().optional(),
+    startDate: z.string(),
+    description: z.string(),
+    endDate: z.string().optional(),
+    currentStatus: z.enum(['GRADUATED', 'IN_PROGRESS', 'DROPPED_OUT']).optional()
+  })),
+  workExperiences: z.array(z.object({
+    company: z.string(),
+    position: z.string(),
+    startDate: z.string(),
+    description: z.string(),
+    endDate: z.string().optional(),
+    currentlyWorking: z.boolean(),
+    responsibilities: z.array(z.string())
   })),
   suggestionStudy: z.array(z.string()),
   notes: z.array(z.object({

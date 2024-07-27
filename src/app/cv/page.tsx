@@ -20,7 +20,7 @@ const profile: UserProfile = {
     linkedin: "https://www.linkedin.com/in/juanperez",
     description: `Más de 15 años de experiencia como Desarrollador de Software. Lideré el desarrollo FrontEnd en Adevinta, logrando un 40% de mejora en la entrega de productos, un 25% en rendimiento web y una plataforma unificada. Como Divulgador, tengo el canal de programación más visto de Twitch en español.`,
   },
-  workExperience: [
+  workExperiences: [
     {
       company: "Google",
       position: "Software Engineer",
@@ -40,7 +40,7 @@ const profile: UserProfile = {
       responsibilities: ["Developing software", "Maintaining software"],
     },
   ],
-  education: [
+  educations: [
     {
       institution: "Universidad de Madrid",
       degree: "Master's degree",
@@ -92,8 +92,8 @@ const profile: UserProfile = {
 const CVPage = () => {
   const {
     personalInfo,
-    workExperience,
-    education,
+    workExperiences,
+    educations,
     skills,
     languages,
     targetLanguage,
@@ -103,8 +103,8 @@ const CVPage = () => {
     <LanguageProvider language={targetLanguage}>
       <main className="max-w-5xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <PersonalInfo {...personalInfo} />
-        <WorkExperiences workExperiences={workExperience} />
-        <Educations educations={education} />
+        <WorkExperiences workExperiences={workExperiences} />
+        <Educations educations={educations} />
         <Skills skills={skills} />
         <Languages languages={languages} />
       </main>

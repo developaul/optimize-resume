@@ -3,7 +3,7 @@
 import { experimental_useObject as useObject } from "ai/react";
 import z from "zod";
 
-export async function fileToBase64(file: File) {
+async function fileToBase64(file: File) {
   return await new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -51,7 +51,7 @@ const Page = () => {
 
       <button type="submit">Generate</button>
 
-      {object?.content && <p>{object.content}</p>}
+      {/* {object?.content && <p>{object.content}</p>} */}
     </form>
   );
 };

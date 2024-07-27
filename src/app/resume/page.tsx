@@ -3,7 +3,7 @@
 import compatibilityAssessmentSchema from "@/server/schemas/compatibilityAssessment";
 import { experimental_useObject as useObject } from "ai/react";
 
-export async function fileToBase64(file: File) {
+async function fileToBase64(file: File) {
   return await new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -97,11 +97,11 @@ const Page = () => {
       {(analyzerResult?.keywords?.filter((keyword) => keyword?.inCv)?.length ?? 0)/(analyzerResult?.keywords?.length ?? 1) * 100}%
 
       <h1>Estudios Respaldados</h1>
-      {analyzerResult?.education?.map((education) => {
+      {analyzerResult?.educations?.map((education) => {
         return (
-          <div key={education?.name}>
+          <div key={education?.institution}>
             <div>
-              {education?.name}
+              {education?.institution}
             </div>
             <div>
               {education?.description}
