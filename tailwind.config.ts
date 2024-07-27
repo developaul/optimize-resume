@@ -25,6 +25,7 @@ const config = {
         blueLight: "hsl(var(--blue-light))",
         blueMiddle: "hsl(var(--blue-middle))",
         blue: "hsl(var(--blue))",
+        grayMuted: "hsl(var(--gray-muted))",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -81,6 +82,7 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        rubik: ['rubik', ...fontFamily.sans]
       },
     },
   },

@@ -27,7 +27,7 @@ function Section({
 
 const Loader = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mb-4">
       <Skeleton className="w-[100%] h-5 rounded-full bg-gray-200" />
       <Skeleton className="w-[100%] h-5 rounded-full bg-gray-200" />
       <Skeleton className="w-[80%] h-5 rounded-full bg-gray-200" />

@@ -41,7 +41,7 @@ export default function MatchChart({ isLoading = false, keywords }: MatchChartPr
   };
 
   return (
-    <Card className="flex flex-col shadow-md rounded-xl">
+    <Card className="flex flex-col shadow-none border-none rounded-xl bg-grayMuted">
       <CardHeader className="items-center pb-0">
         <h2 className="h2 text-center">Coincidencia con el puesto</h2>
       </CardHeader>

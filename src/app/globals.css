@@ -35,6 +35,7 @@
     --blue-light: 248 100 90;
     --blue-middle: 248 100 86;
     --blue: 248 100 71;
+    --gray-muted: 210 40 96;
 
   }
 
@@ -69,6 +70,7 @@
     --blue-light: 248 100 90;
     --blue-middle: 248 100 86;
     --blue: 248 100 71;
+    --gray-muted: 210 40 96;
   }
 }
 
@@ -83,10 +85,10 @@
 
 @layer components {
   .h2 {
-    @apply scroll-m-20 pb-2 text-2xl md:text-3xl font-semibold tracking-tight first:mt-0;
+    @apply scroll-m-20 pb-2 text-2xl md:text-3xl font-semibold tracking-tight first:mt-0 font-rubik;
   }
   .h4 {
-    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+    @apply scroll-m-20 text-xl font-semibold tracking-tight font-rubik;
   }
   .small {
     @apply text-sm font-medium leading-none;
