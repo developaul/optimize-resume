@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { CompatibilityAssessment, PartialObject } from "@/server/types";
 import { FC } from "react";
 
@@ -24,16 +25,29 @@ function Section({
   );
 }
 
+const Loader = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <Skeleton className="w-[100%] h-5 rounded-full bg-gray-200" />
+      <Skeleton className="w-[100%] h-5 rounded-full bg-gray-200" />
+      <Skeleton className="w-[80%] h-5 rounded-full bg-gray-200" />
+    </div>
+  );
+};
+
 interface SuggestionsProps {
   workExperiences: PartialObject<CompatibilityAssessment['workExperiences']>,
   educations: PartialObject<CompatibilityAssessment['educations']>,
   suggestionStudy: PartialObject<CompatibilityAssessment['suggestionStudy']>,
+  isLoading?: boolean;
 }
 
-const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, suggestionStudy }) => {
+const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, suggestionStudy, isLoading }) => {
   return (
     <div>
-      {workExperiences.length > 0 && (
+      {isLoading ? (
+        <Loader />
+      ) : workExperiences.length > 0 && (
         <>
           <h2 className="h2">
             Descripciones para mejorar coincidencia con el puesto
@@ -53,7 +67,9 @@ const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, sugges
         </>
       )}
 
-      {educations.length > 0 && (
+      {isLoading ? (
+        <Loader />
+      ): educations.length > 0 && (
         <>
           <h2 className="h2">
             Estudios
@@ -73,7 +89,9 @@ const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, sugges
         </>
       )}
 
-      {suggestionStudy.length > 0 && (
+      {isLoading ? (
+        <Loader />
+      ): suggestionStudy.length > 0 && (
         <>
           <h2 className="h2">
             Temas a reforzar

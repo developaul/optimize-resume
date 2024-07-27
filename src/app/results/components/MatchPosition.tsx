@@ -2,7 +2,7 @@ import { CompatibilityAssessment, PartialObject } from "@/server/types";
 import { FC } from "react";
 
 interface MatchPositionProps {
-  keywords?: PartialObject<CompatibilityAssessment['keywords']>
+  keywords?: PartialObject<CompatibilityAssessment['keywords']>;
 }
 
 const MatchPosition: FC<MatchPositionProps> = ({ keywords }) => {

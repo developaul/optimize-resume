@@ -1,15 +1,20 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { CompatibilityAssessment, PartialObject } from "@/server/types";
 import { FC } from "react";
 
 interface RecomendationsProps {
-  recommendations: PartialObject<CompatibilityAssessment['recommendations']>
+  recommendations: PartialObject<CompatibilityAssessment['recommendations']>;
+  isLoading?: boolean;
 }
 
-const Recomendations: FC<RecomendationsProps> = ({ recommendations }) => {
+const Recomendations: FC<RecomendationsProps> = ({ recommendations, isLoading }) => {
   return (
     <div className="bg-blueLight rounded-lg p-4">
       <h4 className="h4 mb-2">Recomendaciones:</h4>
-      <ul className="list-disc px-4">
+      {isLoading ? (
+        <Skeleton className="w-[100%] h-5 rounded-full bg-blueMiddle" />
+      ) : (
+        <ul className="list-disc px-4">
         {recommendations.map((recommendation) => {
           return (
             <li key={`Recommendation-${recommendation?.title}`}>
@@ -18,6 +23,7 @@ const Recomendations: FC<RecomendationsProps> = ({ recommendations }) => {
           )
         })}
       </ul>
+      )}
     </div>
   );
 }

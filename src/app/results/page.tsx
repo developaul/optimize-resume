@@ -10,12 +10,12 @@ import { Maybe } from "@/server/types";
 
 import { Separator } from "@/components/ui/separator";
 
-import MatchPosition from "./components/MatchPosition";
 import AnalysisTable from "./components/AnalysisTable";
 import ImportantToKnow from "./components/ImportantToKnow";
 import Recomendations from "./components/Recomendations";
 import Suggestions from "./components/Suggestions";
 import ActionFooter from "./components/ActionFooter";
+import MatchChart from "./components/MatchChart";
 
 export default function ResultPage() {
   const router = useRouter();
@@ -55,26 +55,29 @@ export default function ResultPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const isLoading = !resumeCurriculum
+
   return (
     <div className="bg-gray-100 p-4 h-screen overflow-auto">
       <div className="w-full max-w-screen-2xl m-auto">
         <div className="flex flex-col md:flex-row gap-4 mb-4">
           <section className="flex flex-1 flex-col gap-4">
-            <MatchPosition keywords={resumeCurriculum?.keywords ?? []}/>
-            <AnalysisTable skills={resumeCurriculum?.skills ?? []}/>
-            <ImportantToKnow notes={resumeCurriculum?.notes ?? []}/>
+            <MatchChart keywords={resumeCurriculum?.keywords ?? []} isLoading={isLoading}/>
+            <AnalysisTable skills={resumeCurriculum?.skills ?? []} isLoading={isLoading}/>
+            <ImportantToKnow notes={resumeCurriculum?.notes ?? []} isLoading={isLoading}/>
           </section>
           <Separator orientation="vertical" className="h-100" />
           <section className="flex flex-1 flex-col gap-4">
-            <Recomendations recommendations={resumeCurriculum?.recommendations ?? []}/>
+            <Recomendations recommendations={resumeCurriculum?.recommendations ?? []} isLoading={isLoading}/>
             <Suggestions 
 							workExperiences={resumeCurriculum?.workExperiences ?? []} 
 							educations={resumeCurriculum?.educations ?? []}
 							suggestionStudy={resumeCurriculum?.suggestionStudy ?? []}
+              isLoading={isLoading}
 							/>
           </section>
         </div>
-        <ActionFooter onReset={_handleReset}/>
+        <ActionFooter onReset={_handleReset} isLoading={isLoading}/>
       </div>
     </div>
   );

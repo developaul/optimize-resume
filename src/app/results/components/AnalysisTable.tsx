@@ -10,17 +10,32 @@ import {
 } from "@/components/ui/table";
 import { CompatibilityAssessment, PartialObject, skillConfigBy, SkillType } from "@/server/types";
 import { groupBy } from 'es-toolkit';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const Loader = () => {
+  return (
+    <div className="w-full flex flex-col gap-4">
+      <Skeleton className="w-[100%] h-5 rounded-full bg-gray-200" />
+      <Skeleton className="w-[100%] h-5 rounded-full bg-gray-200" />
+      <Skeleton className="w-[80%] h-5 rounded-full bg-gray-200" />
+    </div>
+  );
+};
 
 interface AnalysisTableProps {
-  skills: PartialObject<CompatibilityAssessment['skills']>
+  skills: PartialObject<CompatibilityAssessment['skills']>;
+  isLoading?: boolean;
 }
 
-const AnalysisTable: FC<AnalysisTableProps> = ({ skills }) => {
+const AnalysisTable: FC<AnalysisTableProps> = ({ skills, isLoading }) => {
   const skillsGroupBySkillType = groupBy(skills, (skill) => skill!.type!)
 
   return (
     <div className="flex flex-col items-center">
-      <Table>
+      {isLoading? (
+        <Loader />
+      ): (
+        <Table>
         <TableHeader className="bg-green">
           <TableRow>
             <TableHead className="p font-bold">Anuncio</TableHead>
@@ -57,6 +72,7 @@ const AnalysisTable: FC<AnalysisTableProps> = ({ skills }) => {
           </TableRow>
         </TableFooter>
       </Table>
+      )}
     </div>
   );
 }
