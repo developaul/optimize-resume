@@ -1,7 +1,5 @@
 import getContext from "@/server/context";
 import validatorController from "@/server/controllers/validator";
-import ReaderAPI from "@/server/services/ReaderAPI";
-import { IContext } from "@/server/types";
 
 export async function POST(req: Request) {
   try {
