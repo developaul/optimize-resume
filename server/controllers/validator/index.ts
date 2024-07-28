@@ -32,14 +32,13 @@ class ValidatorController {
   ) {
     const [jobContent, cvContent] = await Promise.all([
       scrapperController.getTextByUrl(jobUrl, context),
-      fileController.getTextByBase64File(base64URI),
+      fileController.convertBase64PdfToText(base64URI),
     ]);
 
     const { apikey } = context.headers;
     const openai = createOpenAI({ apiKey: apikey });
     const model = openai("gpt-4o");
 
-    // TODO: Improve the prompt to validate the content
     const { object } = await generateObject({
       model,
       schema: z.object({
