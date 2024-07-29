@@ -17,9 +17,12 @@ import Suggestions from "./components/Suggestions";
 import ActionFooter from "./components/ActionFooter";
 import MatchChart from "./components/MatchChart";
 import Layout from "@/components/Layout";
+import CVPage from "../cv/page";
+import useGetProfile from "./hooks/useGetProfile";
 
 export default function ResultPage() {
   const router = useRouter();
+  const { userProfile, isProfileLoading, getProfile } = useGetProfile();
 
   const { object: resumeCurriculum, submit } = useObject({
     api: "/api/cv_analyzer",
@@ -47,14 +50,18 @@ export default function ResultPage() {
     router.push("/");
   };
 
+  const onDowloadCVhandler = () => {
+    getProfile({ apiKey, keyType: "geminis" });
+  };
+
   useEffect(() => {
     const paramsValid = Boolean(apiKey && jobUrl && base64URI);
 
-    // if(!paramsValid) {
-    //   router.replace('/')
+    if (!paramsValid) {
+      router.replace("/");
 
-    //   return
-    // }
+      return;
+    }
 
     submit({
       apiKey,
@@ -65,7 +72,7 @@ export default function ResultPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isLoading = true; //!resumeCurriculum
+  const isLoading = !resumeCurriculum;
 
   return (
     <Layout title="Resultados" canGoBack>
@@ -100,9 +107,22 @@ export default function ResultPage() {
               />
             </section>
           </div>
-          <ActionFooter onReset={_handleReset} isLoading={isLoading} />
+          <ActionFooter
+            onReset={_handleReset}
+            isLoading={isLoading || isProfileLoading}
+            onDownload={onDowloadCVhandler}
+          />
         </div>
       </div>
+
+      {/* cv must be rendered first, then it'll be converted into a pdf file
+       /* but because of the logic we don't want to show the raw component so it's yeeted away
+      */}
+      {!isProfileLoading && userProfile && (
+        <div className="fixed translate-x-[-100%]">
+          <CVPage profile={userProfile} />
+        </div>
+      )}
     </Layout>
   );
 }
