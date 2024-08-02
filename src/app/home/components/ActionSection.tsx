@@ -38,7 +38,7 @@ const ActionSection = () => {
   }
 
   return (
-    <div className="bg-gray-100 p-4 overflow-auto">
+    <div className="p-4 overflow-auto">
       <div className="w-full max-w-screen-xl m-auto">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

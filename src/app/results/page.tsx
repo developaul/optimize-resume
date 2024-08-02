@@ -17,11 +17,19 @@ import Suggestions from "./components/Suggestions";
 import ActionFooter from "./components/ActionFooter";
 import MatchChart from "./components/MatchChart";
 import Layout from "@/components/Layout";
+import CVPage from "../cv/page";
+import useGetProfile from "./hooks/useGetProfile";
 
 export default function ResultPage() {
   const router = useRouter();
+  const { userProfile, isProfileLoading, getProfile } = useGetProfile();
 
-  const { object: resumeCurriculum, submit } = useObject({
+  const {
+    isLoading: isFetching,
+    object: resumeCurriculum,
+    submit,
+    stop,
+  } = useObject({
     api: "/api/cv_analyzer",
     schema: compatibilityAssessmentSchema,
   });
@@ -47,28 +55,41 @@ export default function ResultPage() {
     router.push("/");
   };
 
+  const onDowloadCVhandler = () => {
+    getProfile({ apiKey, keyType: "geminis" });
+  };
+
+  const onGoBack = () => {
+    if (isFetching) {
+      stop();
+    }
+
+    router.replace("/home");
+  };
+
   useEffect(() => {
     const paramsValid = Boolean(apiKey && jobUrl && base64URI);
 
-    // if(!paramsValid) {
-    //   router.replace('/')
+    // if (!paramsValid) {
+    //   router.replace("/");
 
-    //   return
+    //   return;
     // }
-
-    submit({
-      apiKey,
-      jobUrl,
-      base64URI,
-      keyType: "geminis",
-    });
+    return () => {
+      submit({
+        apiKey,
+        jobUrl,
+        base64URI,
+        keyType: "geminis",
+      });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isLoading = true; //!resumeCurriculum
+  const isLoading = true; // !resumeCurriculum;
 
   return (
-    <Layout title="Resultados" canGoBack>
+    <Layout title="Resultados" goBack={onGoBack}>
       <div className="bg-gray-100 p-4 h-screen overflow-auto">
         <div className="w-full max-w-screen-2xl m-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -100,9 +121,22 @@ export default function ResultPage() {
               />
             </section>
           </div>
-          <ActionFooter onReset={_handleReset} isLoading={isLoading} />
+          <ActionFooter
+            onReset={_handleReset}
+            isLoading={isProfileLoading}
+            onDownload={onDowloadCVhandler}
+          />
         </div>
       </div>
+
+      {/* cv must be rendered first, then it'll be converted into a pdf file
+       /* but because of the logic we don't want to show the raw component so it's yeeted away
+      */}
+      {!isProfileLoading && userProfile && (
+        <div className="fixed translate-x-[-100%]">
+          <CVPage profile={userProfile} />
+        </div>
+      )}
     </Layout>
   );
 }

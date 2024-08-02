@@ -39,7 +39,7 @@ const DropZone: FC<DropZoneProps> = forwardRef(
 
     return (
       <div
-        className="outline-dashed outline-2 outline-blue bg-gray-200 hover:bg-gray-100 rounded-md p-3 flex flex-col jutify-center items-center cursor-pointer"
+        className="outline-dashed outline-2 outline-blue bg-gray-50 hover:bg-gray-100 rounded-md p-3 flex flex-col jutify-center items-center cursor-pointer"
         {...getRootProps()}
       >
         <input ref={ref} {...getInputProps()} />
