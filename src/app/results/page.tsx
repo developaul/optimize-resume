@@ -24,7 +24,12 @@ export default function ResultPage() {
   const router = useRouter();
   const { userProfile, isProfileLoading, getProfile } = useGetProfile();
 
-  const { object: resumeCurriculum, submit } = useObject({
+  const {
+    isLoading: isFetching,
+    object: resumeCurriculum,
+    submit,
+    stop,
+  } = useObject({
     api: "/api/cv_analyzer",
     schema: compatibilityAssessmentSchema,
   });
@@ -54,28 +59,37 @@ export default function ResultPage() {
     getProfile({ apiKey, keyType: "geminis" });
   };
 
+  const onGoBack = () => {
+    if (isFetching) {
+      stop();
+    }
+
+    router.replace("/home");
+  };
+
   useEffect(() => {
     const paramsValid = Boolean(apiKey && jobUrl && base64URI);
 
-    if (!paramsValid) {
-      router.replace("/");
+    // if (!paramsValid) {
+    //   router.replace("/");
 
-      return;
-    }
-
-    submit({
-      apiKey,
-      jobUrl,
-      base64URI,
-      keyType: "geminis",
-    });
+    //   return;
+    // }
+    return () => {
+      submit({
+        apiKey,
+        jobUrl,
+        base64URI,
+        keyType: "geminis",
+      });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isLoading = !resumeCurriculum;
+  const isLoading = true; // !resumeCurriculum;
 
   return (
-    <Layout title="Resultados" canGoBack>
+    <Layout title="Resultados" goBack={onGoBack}>
       <div className="bg-gray-100 p-4 h-screen overflow-auto">
         <div className="w-full max-w-screen-2xl m-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -109,7 +123,7 @@ export default function ResultPage() {
           </div>
           <ActionFooter
             onReset={_handleReset}
-            isLoading={isLoading || isProfileLoading}
+            isLoading={isProfileLoading}
             onDownload={onDowloadCVhandler}
           />
         </div>

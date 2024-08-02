@@ -8,8 +8,8 @@ export async function POST(req: Request) {
     // const context = getContext({ apiKey, keyType } as any);
 
     // Validate before generate context
-    const result = await getUserProfileController.analyze();
-    console.log("🚀 ~ POST ~ result:", result)
+    // const result = await getUserProfileController.analyze();
+    // console.log("🚀 ~ POST ~ result:", result)
 
     // return result.toTextStreamResponse();
 

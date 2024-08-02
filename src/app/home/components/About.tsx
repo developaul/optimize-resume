@@ -1,16 +1,23 @@
-import { GithubIcon, LinkedinIcon } from "@/components/icons";
+import { BehanceIcon, GithubIcon, LinkedinIcon } from "@/components/icons";
 import { FC } from "react";
 
 interface MemberProps {
   name: string;
   role: string;
-  linkedin: string;
-  github: string;
+  linkedin?: string;
+  github?: string;
+  behance?: string;
 }
 
-const TeamMemberCard: FC<MemberProps> = ({ name, role, linkedin, github }) => {
+const TeamMemberCard: FC<MemberProps> = ({
+  name,
+  role,
+  linkedin,
+  github,
+  behance,
+}) => {
   return (
-    <div className="bg-white rounded-lg py-3 px-6 flex flex-row justify-between items-center mb-3">
+    <div className="bg-[#F1F5F9] rounded-lg py-3 px-6 flex flex-row justify-between items-center mb-3">
       <div className="flex flex-col">
         <h4 className="h4">{name}</h4>
         <small className="small">{role}</small>
@@ -26,6 +33,11 @@ const TeamMemberCard: FC<MemberProps> = ({ name, role, linkedin, github }) => {
             <GithubIcon />
           </a>
         )}
+        {behance && (
+          <a href={behance} target="_blank">
+            <BehanceIcon />
+          </a>
+        )}
       </div>
     </div>
   );
@@ -34,36 +46,33 @@ const TeamMemberCard: FC<MemberProps> = ({ name, role, linkedin, github }) => {
 const About = () => {
   const members = [
     {
-      name: "jhon Doe",
-      role: "foo bar",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      name: "Paul Chávez",
+      role: "CEO / PO / Scrum Master",
+      linkedin: "https://www.linkedin.com/in/developaul/",
+      github: "https://github.com/developaul",
     },
     {
-      name: "jhon Doe",
-      role: "foo bar",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      name: "Luis Sullca H",
+      role: "Back-End dev",
+      // linkedin: "https://linkedin.com",
+      github: "https://github.com/Louiso",
     },
     {
-      name: "jhon Doe",
-      role: "foo bar",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      name: "Micaela Leguizamon",
+      role: "UX / UI Designer",
+      linkedin: "https://www.linkedin.com/in/micaela-leguiz/",
+      behance: "https://www.behance.net/micaela-leguiz",
     },
     {
-      name: "jhon Doe",
-      role: "foo bar",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      name: "Juan De León",
+      role: "Front-End dev",
+      linkedin: "https://www.linkedin.com/in/juan-dl/",
+      github: "https://github.com/deleonjuan",
     },
   ];
 
   return (
-    <section
-      className="py-16 px-4 bg-cover bg-center"
-      style={{ backgroundImage: "url('/waves.png')" }}
-    >
+    <section>
       <div className="w-full max-w-screen-xl m-auto flex flex-col md:flex-row gap-16">
         <div className="flex-1">
           <h4 className="h4">Sobre el proyecto</h4>
