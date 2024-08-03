@@ -19,6 +19,7 @@ import MatchChart from "./components/MatchChart";
 import Layout from "@/components/Layout";
 import CVPage from "../cv/page";
 import useGetProfile from "./hooks/useGetProfile";
+import { LoadingIcon } from "@/components/icons";
 
 export default function ResultPage() {
   const router = useRouter();
@@ -64,17 +65,17 @@ export default function ResultPage() {
       stop();
     }
 
-    router.replace("/home");
+    router.replace("/");
   };
 
   useEffect(() => {
     const paramsValid = Boolean(apiKey && jobUrl && base64URI);
 
-    // if (!paramsValid) {
-    //   router.replace("/");
+    if (!paramsValid) {
+      router.replace("/");
 
-    //   return;
-    // }
+      return;
+    }
     return () => {
       submit({
         apiKey,
@@ -86,57 +87,65 @@ export default function ResultPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isLoading = true; // !resumeCurriculum;
+  const isLoading = !resumeCurriculum;
 
   return (
-    <Layout title="Resultados" goBack={onGoBack}>
-      <div className="bg-gray-100 p-4 h-screen overflow-auto">
-        <div className="w-full max-w-screen-2xl m-auto">
-          <div className="flex flex-col md:flex-row gap-4 mb-4">
-            <section className="flex flex-1 flex-col gap-4">
-              <MatchChart
-                keywords={resumeCurriculum?.keywords ?? []}
-                isLoading={isLoading}
-              />
-              <AnalysisTable
-                skills={resumeCurriculum?.skills ?? []}
-                isLoading={isLoading}
-              />
-              <ImportantToKnow
-                notes={resumeCurriculum?.notes ?? []}
-                isLoading={isLoading}
-              />
-            </section>
-            <Separator orientation="vertical" className="h-100" />
-            <section className="flex flex-1 flex-col gap-4">
-              <Recomendations
-                recommendations={resumeCurriculum?.recommendations ?? []}
-                isLoading={isLoading}
-              />
-              <Suggestions
-                workExperiences={resumeCurriculum?.workExperiences ?? []}
-                educations={resumeCurriculum?.educations ?? []}
-                suggestionStudy={resumeCurriculum?.suggestionStudy ?? []}
-                isLoading={isLoading}
-              />
-            </section>
-          </div>
-          <ActionFooter
-            onReset={_handleReset}
-            isLoading={isProfileLoading}
-            onDownload={onDowloadCVhandler}
-          />
-        </div>
-      </div>
-
-      {/* cv must be rendered first, then it'll be converted into a pdf file
-       /* but because of the logic we don't want to show the raw component so it's yeeted away
-      */}
-      {!isProfileLoading && userProfile && (
-        <div className="fixed translate-x-[-100%]">
-          <CVPage profile={userProfile} />
+    <>
+      {isLoading && (
+        <div className="fixed w-full h-full items-center pt-20 flex flex-col z-10">
+          <h2 className="h2 mb-8">Obteniendo resultados</h2>
+          <LoadingIcon className="flex items-center mr-2 h-8 w-8 animate-spin" />
         </div>
       )}
-    </Layout>
+      <Layout
+        title="Resultados"
+        goBack={onGoBack}
+        bodyClassName={`${isLoading && "blur"}`}
+      >
+        <div className="flex flex-col md:flex-row gap-4 mb-4">
+          <section className="flex flex-1 flex-col gap-4">
+            <MatchChart
+              keywords={resumeCurriculum?.keywords ?? []}
+              isLoading={isLoading}
+            />
+            <AnalysisTable
+              skills={resumeCurriculum?.skills ?? []}
+              isLoading={isLoading}
+            />
+            <ImportantToKnow
+              notes={resumeCurriculum?.notes ?? []}
+              isLoading={isLoading}
+            />
+          </section>
+          <Separator orientation="vertical" className="h-100" />
+          <section className="flex flex-1 flex-col gap-4">
+            <Recomendations
+              recommendations={resumeCurriculum?.recommendations ?? []}
+              isLoading={isLoading}
+            />
+            <Suggestions
+              workExperiences={resumeCurriculum?.workExperiences ?? []}
+              educations={resumeCurriculum?.educations ?? []}
+              suggestionStudy={resumeCurriculum?.suggestionStudy ?? []}
+              isLoading={isLoading}
+            />
+          </section>
+        </div>
+        <ActionFooter
+          onReset={_handleReset}
+          isLoading={isProfileLoading}
+          onDownload={onDowloadCVhandler}
+        />
+
+        {/* cv must be rendered first, then it'll be converted into a pdf file
+       /* but because of the logic we don't want to show the raw component so it's yeeted away
+       */}
+        {!isProfileLoading && userProfile && (
+          <div className="fixed translate-x-[-100%]">
+            <CVPage profile={userProfile} />
+          </div>
+        )}
+      </Layout>
+    </>
   );
 }

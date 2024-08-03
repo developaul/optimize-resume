@@ -44,7 +44,7 @@ interface SuggestionsProps {
 
 const Suggestions: FC<SuggestionsProps> = ({ workExperiences, educations, suggestionStudy, isLoading }) => {
   return (
-    <div>
+    <div className="bg-white rounded-lg p-4">
       {isLoading ? (
         <Loader />
       ) : workExperiences.length > 0 && (

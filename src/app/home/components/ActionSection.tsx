@@ -14,28 +14,29 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import DropZone from "./DropZone";
+import { FC } from "react";
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
   apikey: z.string().min(10, {
     message: "La api key parece ser muy corta",
   }),
-  jobPost: z.string(),
+  jobUrl: z.string(),
   cvFile: z.any(),
 });
 
-const ActionSection = () => {
+interface ActionSectionProps {
+  onSubmit: (data: z.infer<typeof FormSchema>) => void;
+}
+
+const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       apikey: "",
-      jobPost: "",
-      cvFile: undefined,
+      jobUrl: "",
+      cvFile: [],
     },
   });
-
-  function onSubmit(_data: z.infer<typeof FormSchema>) {
-    console.log("submit");
-  }
 
   return (
     <div className="p-4 overflow-auto">
@@ -62,7 +63,7 @@ const ActionSection = () => {
             />
             <FormField
               control={form.control}
-              name="jobPost"
+              name="jobUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>

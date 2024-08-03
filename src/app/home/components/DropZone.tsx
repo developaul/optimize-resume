@@ -52,7 +52,7 @@ const DropZone: FC<DropZoneProps> = forwardRef(
 
         {acceptedFiles.length > 0 && <span>{acceptedFiles[0].name}</span>}
         {acceptedFiles.length < 1 && value !== undefined && (
-          <span>logo.png</span>
+          <span>cv.pdf</span>
         )}
       </div>
     );

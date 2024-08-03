@@ -46,12 +46,12 @@ const AnalysisTable: FC<AnalysisTableProps> = ({ skills, isLoading }) => {
           {Object.entries(skillsGroupBySkillType).map(([ skillType, skills ]) => {
             return (
               <Fragment key={`SectionSkillType-${skillType}`}>
-                <TableRow>
+                <TableRow className='bg-gray-50'>
                   <TableCell className="p font-bold">{skillConfigBy[skillType as unknown as SkillType]?.name}</TableCell>
                 </TableRow>
                 {skills.map((skill) => {
                   return (
-                  <TableRow key={`Skill-${skill?.name}`}>
+                  <TableRow key={`Skill-${skill?.name}`} className='bg-white' >
                     <TableCell>{skill?.name}</TableCell>
                     <TableCell>{skill?.inCv ? '✅': ' '}</TableCell>
                   </TableRow>
