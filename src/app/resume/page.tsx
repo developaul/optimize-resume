@@ -20,8 +20,8 @@ async function fileToBase64(file: File) {
 
 const Page = () => {
   const { object: analyzerResult, submit } = useObject({
-    api: "/api/cv_analyzer",
-    schema: compatibilityAssessmentSchema
+    api: "/api/cv-analyzer",
+    schema: compatibilityAssessmentSchema,
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +34,7 @@ const Page = () => {
 
     const base64URI = await fileToBase64(file);
 
-    submit({ apiKey, jobUrl, base64URI, keyType: 'geminis' });
+    submit({ apiKey, jobUrl, base64URI, keyType: "geminis" });
   };
 
   return (
@@ -49,66 +49,50 @@ const Page = () => {
         <input type="text" name="jobUrl" />
 
         <button type="submit">Generate</button>
-
       </form>
       <div>
-      <h1>
-        Match de habilidades
-      </h1>
-      {analyzerResult?.skills?.map((skill) => {
-        return (
-          <div key={skill?.name}>
-            <div>Nombre: {skill?.name}</div>
-            <div>
-              En  el Cv: {skill?.inCv}
+        <h1>Match de habilidades</h1>
+        {analyzerResult?.skills?.map((skill) => {
+          return (
+            <div key={skill?.name}>
+              <div>Nombre: {skill?.name}</div>
+              <div>En el Cv: {skill?.inCv}</div>
+              <div>Tipo de habilidad: {skill?.type}</div>
             </div>
-            <div>
-              Tipo de habilidad: {skill?.type}
+          );
+        })}
+        <h1>Recomendaciones</h1>
+        {analyzerResult?.recommendations?.map((recommendation) => {
+          return (
+            <div key={recommendation?.title}>
+              <h2>{recommendation?.title}</h2>
+              <p>{recommendation?.description}</p>
             </div>
-          </div>
-        )
-      })}
-
-      <h1>Recomendaciones</h1>
-      {analyzerResult?.recommendations?.map((recommendation) => {
-        return (
-          <div key={recommendation?.title}>
-            <h2>
-            {recommendation?.title}
-            </h2>
-            <p>
-            {recommendation?.description}
-            </p>
-          </div>
-        )
-      })}
-
-      <h1>Notas</h1>
-      {analyzerResult?.notes?.map((note) => {
-        return (
-          <div key={note?.description}>
-            <div>{note?.type}</div>
-            <div>{note?.description}</div>
-          </div>
-        )
-      })}
-
-      <h1>palabras clave</h1>
-      {(analyzerResult?.keywords?.filter((keyword) => keyword?.inCv)?.length ?? 0)/(analyzerResult?.keywords?.length ?? 1) * 100}%
-
-      <h1>Estudios Respaldados</h1>
-      {analyzerResult?.educations?.map((education) => {
-        return (
-          <div key={education?.institution}>
-            <div>
-              {education?.institution}
+          );
+        })}
+        <h1>Notas</h1>
+        {analyzerResult?.notes?.map((note) => {
+          return (
+            <div key={note?.description}>
+              <div>{note?.type}</div>
+              <div>{note?.description}</div>
             </div>
-            <div>
-              {education?.description}
+          );
+        })}
+        <h1>palabras clave</h1>
+        {((analyzerResult?.keywords?.filter((keyword) => keyword?.inCv)
+          ?.length ?? 0) /
+          (analyzerResult?.keywords?.length ?? 1)) *
+          100}
+        %<h1>Estudios Respaldados</h1>
+        {analyzerResult?.educations?.map((education) => {
+          return (
+            <div key={education?.institution}>
+              <div>{education?.institution}</div>
+              <div>{education?.description}</div>
             </div>
-          </div>
-        )
-      })}
+          );
+        })}
       </div>
     </>
   );

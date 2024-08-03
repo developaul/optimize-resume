@@ -1,9 +1,9 @@
 import { IContext } from "@/server/types";
-import fileController from '../files'
-import scrapperController from '../scrapper'
-import { openai } from '@ai-sdk/openai'
-import { google } from '@ai-sdk/google'
-import { generateObject, generateText, streamObject } from "ai";
+import fileController from "../files";
+import scrapperController from "../scrapper";
+import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
+import { streamObject } from "ai";
 import CompatibilityAssessmentSchema from "@/server/schemas/compatibilityAssessment";
 
 interface AnalyzeArgs {
@@ -12,16 +12,19 @@ interface AnalyzeArgs {
 }
 
 const model = {
-  GOOGLE_GENERATIVE_AI: google('models/gemini-1.5-pro-latest'),
+  GOOGLE_GENERATIVE_AI: google("models/gemini-1.5-pro-latest"),
   OPENAI: openai("gpt-4o"),
-}[process.env.IA!]
+}[process.env.IA!];
 
 class CvAnalyzerController {
-  async analyze ({ base64URI, jobUrl }: AnalyzeArgs, context: IContext) {
-    const cvHtml = await fileController.convertBase64PdfToText(base64URI)
+  async analyze({ base64URI, jobUrl }: AnalyzeArgs, context: IContext) {
+    const cvHtml = await fileController.convertBase64PdfToText(base64URI);
 
-    const publicationHtml = await scrapperController.getTextByUrl(jobUrl, context)
-    
+    const publicationHtml = await scrapperController.getTextByUrl(
+      jobUrl,
+      context
+    );
+
     const prompt = `
 Eres especialista en reclutamiento y por eso te voy a pasar un currículum vitae (CV) estilo json y la descripción de una oferta de trabajo para que la evalúes y digas qué mejoras se le pueden hacer al CV para que pueda ser elegido. por esa oferta de trabajo. 
 La respuesta debe ser concisa y explicar brevemente las mejoras a realizar.
@@ -66,18 +69,18 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
   - logs: // Este campo es para q me des detalle de tu forma de analizar y expliques xq en ciertos casos tengo campos por ejemplo en estudio vacio. Tambien indicame porque no se encontro nada en notas. Esto me servira para mejorar mi prompt
 
   - suggestionStudy: // En base a los logs, lista un conjunto de temas de estudio que el candidato no respalda.
-`
+`;
 
     const result = await streamObject({
       model: model!,
       schema: CompatibilityAssessmentSchema,
-      prompt
-    })
-  
-    return result
+      prompt,
+    });
+
+    return result;
   }
 }
 
-const cvAnalyzerController = new CvAnalyzerController()
+const cvAnalyzerController = new CvAnalyzerController();
 
-export default cvAnalyzerController
+export default cvAnalyzerController;

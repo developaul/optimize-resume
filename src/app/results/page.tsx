@@ -31,7 +31,7 @@ export default function ResultPage() {
     submit,
     stop,
   } = useObject({
-    api: "/api/cv_analyzer",
+    api: "/api/cv-analyzer",
     schema: compatibilityAssessmentSchema,
   });
 
