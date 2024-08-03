@@ -2,7 +2,7 @@ import { FC, useContext } from "react";
 
 import { ISkill, ISkills } from "@/server/types";
 import { getTitlesByLanguage } from "@/lib/utils";
-import { LanguageContext } from "../providers";
+import { LanguageContext } from "./providers";
 
 interface SkillsProps {
   skills: ISkills;

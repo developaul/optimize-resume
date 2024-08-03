@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 
 import { ILanguage, ILanguages } from "@/server/types";
-import { LanguageContext } from "../providers";
+import { LanguageContext } from "./providers";
 
 interface LanguagesProps {
   languages: ILanguages;

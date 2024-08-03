@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 
 import { IWorkExperience, IWorkExperiences } from "@/server/types";
-import { LanguageContext } from "../providers";
+import { LanguageContext } from "./providers";
 
 interface WorkExperiencesProps {
   workExperiences: IWorkExperiences;
