@@ -1,15 +1,7 @@
 import getContext from "@/server/context";
 import cvAnalyzerController from "@/server/controllers/cv_analyzer";
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '1mb',
-    },
-    responseLimit: false,
-  },
-}
-
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
@@ -17,21 +9,24 @@ export async function POST(req: Request) {
 
     const headers = {
       apikey: apiKey,
-      keytype: keyType
-    }
+      keytype: keyType,
+    };
     const context = getContext(headers);
 
     // Validate before generate context
-    const result = await cvAnalyzerController.analyze({
-      jobUrl,
-      base64URI,
-    }, context);
+    const result = await cvAnalyzerController.analyze(
+      {
+        jobUrl,
+        base64URI,
+      },
+      context
+    );
 
-    return result.toTextStreamResponse()
+    return result.toTextStreamResponse();
     // return result.toJsonResponse()
     // return Response.json({ data: extractJson(result.text) }, { status: 200 });
   } catch (error: any) {
-    console.log('error', error)
+    console.log("error", error);
     return Response.json({ message: error.message }, { status: 500 });
   }
 }
