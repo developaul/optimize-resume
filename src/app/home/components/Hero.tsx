@@ -2,7 +2,6 @@ const Hero = () => {
   return (
     <section className="py-16 px-4">
       <div className="w-full max-w-screen-xl m-auto flex flex-col items-center">
-        <h2 className="h2 mb-4">Tu CV listo para conquistar los ATS.</h2>
         <p>¿Te cansas de que tu CV no pase los filtros automatizados?</p>
         <p>
           Nuestra plataforma con IA analiza la oferta de trabajo y tu CV,

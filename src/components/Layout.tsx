@@ -7,10 +7,15 @@ type LayoutProps = {
   children: React.ReactNode;
   goBack?: () => void;
   title: string;
-  bodyClassName?: any
+  bodyClassName?: any;
 };
 
-const Layout: FC<LayoutProps> = ({ children, goBack, title, bodyClassName }) => {
+const Layout: FC<LayoutProps> = ({
+  children,
+  goBack,
+  title,
+  bodyClassName,
+}) => {
   return (
     <>
       <header className="bg-white/30 shadow-sm px-4 py-2 sticky top-0 backdrop-blur z-10">
@@ -30,8 +35,12 @@ const Layout: FC<LayoutProps> = ({ children, goBack, title, bodyClassName }) => 
       </header>
       <main
         className={`py-16 px-4 bg-cover bg-center ${bodyClassName}`}
-        style={{ backgroundImage: "url('/background.png')", }}
+        style={{ backgroundImage: "url('/background.png')" }}
       >
+        <h2 className="h2 mb-4 text-center">
+          Tu CV listo para conquistar los ATS
+        </h2>
+
         {children}
       </main>
     </>

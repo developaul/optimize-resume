@@ -47,13 +47,13 @@ const About = () => {
   const members = [
     {
       name: "Paul Chávez",
-      role: "CEO / PO / Scrum Master",
+      role: "Full Stack Developer",
       linkedin: "https://www.linkedin.com/in/developaul/",
       github: "https://github.com/developaul",
     },
     {
       name: "Luis Sullca H",
-      role: "Back-End dev",
+      role: "Back-End Developer",
       // linkedin: "https://linkedin.com",
       github: "https://github.com/Louiso",
     },
@@ -65,7 +65,7 @@ const About = () => {
     },
     {
       name: "Juan De León",
-      role: "Front-End dev",
+      role: "Front-End Developer",
       linkedin: "https://www.linkedin.com/in/juan-dl/",
       github: "https://github.com/deleonjuan",
     },
@@ -77,16 +77,17 @@ const About = () => {
         <div className="flex-1">
           <h4 className="h4">Sobre el proyecto</h4>
           <p className="p">
-            Desarrollamos Resume.AI para participar de una hackathon organizada
-            por Vercel. Nos propusimos crear una solución innovadora para hacer
-            más eficientes las búsquedas de empleo. Estamos orgullosos de lo que
-            hemos logrado y esperamos que les sea tan útil como lo imaginamos
+            Desarrollamos <strong>Optimize resume</strong> para participar de
+            una hackathon organizada por Vercel. Nos propusimos crear una
+            solución innovadora para hacer más eficientes las búsquedas de
+            empleo. Estamos orgullosos de lo que hemos logrado y esperamos que
+            les sea tan útil como lo imaginamos
           </p>
         </div>
         <div className="flex-1">
           <h4 className="h4 mb-4">Nuestro equipo</h4>
           {members.map((member) => (
-            <TeamMemberCard {...member} />
+            <TeamMemberCard key={member.name} {...member} />
           ))}
         </div>
       </div>
