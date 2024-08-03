@@ -47,13 +47,13 @@ const About = () => {
   const members = [
     {
       name: "Paul Chávez",
-      role: "CEO / PO / Scrum Master",
+      role: "Full Stack Developer",
       linkedin: "https://www.linkedin.com/in/developaul/",
       github: "https://github.com/developaul",
     },
     {
       name: "Luis Sullca H",
-      role: "Back-End dev",
+      role: "Back-End Developer",
       // linkedin: "https://linkedin.com",
       github: "https://github.com/Louiso",
     },
@@ -65,7 +65,7 @@ const About = () => {
     },
     {
       name: "Juan De León",
-      role: "Front-End dev",
+      role: "Front-End Developer",
       linkedin: "https://www.linkedin.com/in/juan-dl/",
       github: "https://github.com/deleonjuan",
     },
