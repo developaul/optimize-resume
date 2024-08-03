@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 interface DropZoneProps {
   onChange: (files: FileList | null) => void;
   label: string;
-  TxtHelper: string;
+  TxtHelper: JSX.Element;
   value: any;
 }
 
@@ -46,15 +46,14 @@ const DropZone: FC<DropZoneProps> = forwardRef(
         {...getRootProps()}
       >
         <input ref={ref} {...getInputProps()} />
-        {acceptedFiles.length < 1 && value === undefined && (
+        {acceptedFiles.length < 1 && (
           <label htmlFor="file-upload" className="text-center text-black h4">
             {label}
-            <p className="text-gray-500 small mt-2">{TxtHelper}</p>
+            {TxtHelper}
           </label>
         )}
 
         {acceptedFiles.length > 0 && <span>{acceptedFiles[0].name}</span>}
-        {acceptedFiles.length < 1 && value !== undefined && <span>cv.pdf</span>}
       </div>
     );
   }

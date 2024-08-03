@@ -88,7 +88,12 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
                   <FormControl>
                     <DropZone
                       label="Sube tu cv"
-                      TxtHelper="Archivo formato .pdf máximo 1 MB"
+                      TxtHelper={
+                        <div className="mt-3 flex flex-col gap-2 text-gray-500">
+                          <span className="small">Formato .pdf</span>
+                          <span className="small">Maximo 10 MB</span>
+                        </div>
+                      }
                       {...field}
                     />
                   </FormControl>
