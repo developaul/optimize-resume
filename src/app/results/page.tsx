@@ -17,7 +17,7 @@ import Suggestions from "./components/Suggestions";
 import ActionFooter from "./components/ActionFooter";
 import MatchChart from "./components/MatchChart";
 import Layout from "@/components/Layout";
-import CVPage from "../cv/page";
+import CV from "@/components/cv";
 import useGetProfile from "./hooks/useGetProfile";
 import { LoadingIcon } from "@/components/icons";
 
@@ -142,7 +142,7 @@ export default function ResultPage() {
        */}
         {!isProfileLoading && userProfile && (
           <div className="fixed translate-x-[-100%]">
-            <CVPage profile={userProfile} />
+            <CV profile={userProfile} />
           </div>
         )}
       </Layout>

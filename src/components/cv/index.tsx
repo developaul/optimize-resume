@@ -1,5 +1,7 @@
 "use client";
 
+import { FC } from "react";
+
 import { UserProfile } from "@/server/types";
 
 import WorkExperiences from "./components/WorkExperiences";
@@ -9,13 +11,12 @@ import Languages from "./components/Languages";
 import Skills from "./components/Skills";
 
 import { LanguageProvider } from "./providers";
-import { FC } from "react";
 
-interface CVPageProps {
-  profile: UserProfile
+interface CVProps {
+  profile: UserProfile;
 }
 
-const CVPage: FC<CVPageProps> = ({profile}) => {
+const CV: FC<CVProps> = ({ profile }) => {
   const {
     personalInfo,
     workExperiences,
@@ -27,7 +28,10 @@ const CVPage: FC<CVPageProps> = ({profile}) => {
 
   return (
     <LanguageProvider language={targetLanguage}>
-      <main id="content-id" className="max-w-5xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+      <main
+        id="content-id"
+        className="max-w-5xl mx-auto px-4 py-4 sm:px-6 lg:px-8"
+      >
         <PersonalInfo {...personalInfo} />
         <WorkExperiences workExperiences={workExperiences} />
         <Educations educations={educations} />
@@ -38,4 +42,4 @@ const CVPage: FC<CVPageProps> = ({profile}) => {
   );
 };
 
-export default CVPage;
+export default CV;

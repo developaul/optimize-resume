@@ -20,9 +20,12 @@ const DropZone: FC<DropZoneProps> = forwardRef(
       return null;
     };
 
-    const onDrop = useCallback((acceptedFiles: any) => {
-      onChange(acceptedFiles);
-    }, []);
+    const onDrop = useCallback(
+      (acceptedFiles: any) => {
+        onChange(acceptedFiles);
+      },
+      [onChange]
+    );
 
     const { getRootProps, getInputProps, acceptedFiles, fileRejections } =
       useDropzone({
@@ -51,12 +54,12 @@ const DropZone: FC<DropZoneProps> = forwardRef(
         )}
 
         {acceptedFiles.length > 0 && <span>{acceptedFiles[0].name}</span>}
-        {acceptedFiles.length < 1 && value !== undefined && (
-          <span>cv.pdf</span>
-        )}
+        {acceptedFiles.length < 1 && value !== undefined && <span>cv.pdf</span>}
       </div>
     );
   }
 );
+
+DropZone.displayName = "DropZone";
 
 export default DropZone;
