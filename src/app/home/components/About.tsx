@@ -77,10 +77,11 @@ const About = () => {
         <div className="flex-1">
           <h4 className="h4">Sobre el proyecto</h4>
           <p className="p">
-            Desarrollamos Resume.AI para participar de una hackathon organizada
-            por Vercel. Nos propusimos crear una solución innovadora para hacer
-            más eficientes las búsquedas de empleo. Estamos orgullosos de lo que
-            hemos logrado y esperamos que les sea tan útil como lo imaginamos
+            Desarrollamos <strong>Optimize resume</strong> para participar de
+            una hackathon organizada por Vercel. Nos propusimos crear una
+            solución innovadora para hacer más eficientes las búsquedas de
+            empleo. Estamos orgullosos de lo que hemos logrado y esperamos que
+            les sea tan útil como lo imaginamos
           </p>
         </div>
         <div className="flex-1">

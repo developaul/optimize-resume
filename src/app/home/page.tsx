@@ -1,19 +1,18 @@
 "use client";
 
-import Layout from "@/components/Layout";
+import { z } from "zod";
+import { useLocalStorage } from "usehooks-ts";
+import { useRouter } from "next/navigation";
+
 import ActionSection, { FormSchema } from "./components/ActionSection";
+import Layout from "@/components/Layout";
 import Hero from "./components/Hero";
 import About from "./components/About";
 
-import { useRouter } from "next/navigation";
-import { useLocalStorage } from "usehooks-ts";
-
 import { fileToBase64 } from "@/lib/utils";
 import { Maybe } from "@/server/types";
-import { z } from "zod";
 
 export default function Home() {
-
   const router = useRouter();
 
   const [, setApiKey] = useLocalStorage<Maybe<string>>("api_key", null);
@@ -32,8 +31,8 @@ export default function Home() {
 
   return (
     <>
-      <Layout title="Resume.AI">
-        <ActionSection onSubmit={handleSubmit}/>
+      <Layout title="Optimize Resume">
+        <ActionSection onSubmit={handleSubmit} />
         <Hero />
         <About />
       </Layout>
