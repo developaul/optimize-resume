@@ -86,7 +86,7 @@ const About = () => {
         <div className="flex-1">
           <h4 className="h4 mb-4">Nuestro equipo</h4>
           {members.map((member) => (
-            <TeamMemberCard {...member} />
+            <TeamMemberCard key={member.name} {...member} />
           ))}
         </div>
       </div>
