@@ -64,9 +64,9 @@ class ValidatorController {
 
       const { job, cv } = object;
 
-      if (!job.isValid) throw new Error("Invalid job content");
+      if (!job.isValid) throw new Error("El anuncio de empleo no es válido");
 
-      if (!cv.isValid) throw new Error("Invalid CV content");
+      if (!cv.isValid) throw new Error("El CV no es válido");
     } catch (error) {
       throw error;
     }

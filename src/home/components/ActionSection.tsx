@@ -30,8 +30,10 @@ export const FormSchema = z.object({
   apiKey: z.string().min(10, {
     message: "La api key parece ser muy corta",
   }),
-  jobContent: z.string(),
-  cvFile: z.any(),
+  jobContent: z
+    .string()
+    .min(2, { message: "El anuncio de empleo es muy corto" }),
+  cvFile: z.array(z.any()).min(1, { message: "No has subido ningún CV" }),
   keyType: z.enum(["open-ai", "gemini"]),
 });
 
@@ -162,7 +164,9 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
                 className="bg-blue hover:bg-purple-500 text-neutral-900 font-bold"
                 type="submit"
                 disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
+                  !form.formState.isDirty ||
+                  form.formState.isSubmitting ||
+                  !form.formState.isValid
                 }
                 loadingText="Validando..."
                 loading={form.formState.isSubmitting}
