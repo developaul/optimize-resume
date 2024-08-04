@@ -25,17 +25,32 @@ const TeamMemberCard: FC<MemberProps> = ({
       </div>
       <div className="flex flex-row gap-4">
         {linkedin && (
-          <Link href={linkedin} target="_blank" rel="noreferrer">
+          <Link
+            aria-label={`Linkedin de ${name}`}
+            href={linkedin}
+            target="_blank"
+            rel="noreferrer"
+          >
             <LinkedinIcon />
           </Link>
         )}
         {github && (
-          <Link href={github} target="_blank" rel="noreferrer">
+          <Link
+            aria-label={`Github de ${name}`}
+            href={github}
+            target="_blank"
+            rel="noreferrer"
+          >
             <GithubIcon />
           </Link>
         )}
         {behance && (
-          <Link href={behance} target="_blank" rel="noreferrer">
+          <Link
+            aria-label={`Behance de ${name}`}
+            href={behance}
+            target="_blank"
+            rel="noreferrer"
+          >
             <BehanceIcon />
           </Link>
         )}
@@ -76,7 +91,7 @@ const About = () => {
     <section>
       <div className="w-full max-w-screen-xl m-auto flex flex-col md:flex-row gap-16">
         <div className="flex-1">
-          <h4 className="h4">Sobre el proyecto</h4>
+          <h3 className="h4">Sobre el proyecto</h3>
           <p className="p">
             Desarrollamos <strong>Optimize resume</strong> para participar de
             una hackathon organizada por Vercel. Nos propusimos crear una
