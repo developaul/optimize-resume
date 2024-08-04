@@ -16,6 +16,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import DropZone from "./DropZone";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const FormSchema = z.object({
   apiKey: z.string().min(10, {
@@ -23,7 +32,13 @@ export const FormSchema = z.object({
   }),
   jobContent: z.string(),
   cvFile: z.any(),
+  keyType: z.enum(["open-ai", "gemini"]),
 });
+
+const modelTypes = [
+  { value: "open-ai", label: "OpenAI" },
+  { value: "gemini", label: "Gemini" },
+];
 
 interface ActionSectionProps {
   onSubmit: (data: z.infer<typeof FormSchema>) => void;
@@ -36,6 +51,7 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
       apiKey: "",
       jobContent: "",
       cvFile: [],
+      keyType: "open-ai",
     },
   });
 
@@ -50,7 +66,40 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
               disabled={form.formState.isSubmitting}
               render={({ field, formState }) => (
                 <FormItem>
-                  <FormLabel>API KEY</FormLabel>
+                  <div className="flex items-center justify-between">
+                    <FormLabel>API KEY</FormLabel>
+
+                    <FormField
+                      control={form.control}
+                      name={"keyType"}
+                      disabled={form.formState.isSubmitting}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              value={field.value}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Seleciona un modelo" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Modelos</SelectLabel>
+                                  {modelTypes.map(({ value, label }) => (
+                                    <SelectItem key={value} value={value}>
+                                      {label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
                   <FormControl>
                     <Input
                       disabled={form.formState.isSubmitting}

@@ -22,11 +22,13 @@ export default function HomePage() {
   const [, setApiKey] = useLocalStorage<Maybe<string>>("api_key", null);
   const [, setJobContent] = useLocalStorage<Maybe<string>>("jobContent", null);
   const [, setBase64URI] = useLocalStorage<Maybe<string>>("base64URI", null);
+  const [, setKeyType] = useLocalStorage<Maybe<string>>("keyType", null);
 
   const handleSubmit = async ({
     cvFile,
     jobContent,
     apiKey,
+    keyType,
   }: z.infer<typeof FormSchema>) => {
     try {
       const base64URI = await fileToBase64(cvFile[0]);
@@ -35,7 +37,7 @@ export default function HomePage() {
         apiKey,
         jobContent,
         base64URI,
-        keyType: "open-ai",
+        keyType,
       });
 
       if (!success) throw new Error(message);
@@ -43,6 +45,7 @@ export default function HomePage() {
       setApiKey(apiKey);
       setJobContent(jobContent);
       setBase64URI(base64URI);
+      setKeyType(keyType);
 
       router.push("/results");
     } catch (error: any) {

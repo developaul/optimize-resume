@@ -49,17 +49,22 @@ export default function ResultPage() {
     "base64URI",
     null
   );
+  const [keyType, , removeKeyType] = useLocalStorage<Maybe<string>>(
+    "keyType",
+    null
+  );
 
   const _handleReset = () => {
     removeJobContent();
     removeBase64URI();
     removeApiKey();
+    removeKeyType();
 
     router.push("/");
   };
 
   const onDowloadCVhandler = () => {
-    getProfile({ apiKey, keyType: "open-ai" });
+    getProfile({ apiKey, keyType });
   };
 
   const onGoBack = () => {
@@ -83,7 +88,7 @@ export default function ResultPage() {
         apiKey,
         jobContent,
         base64URI,
-        keyType: "open-ai",
+        keyType,
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
