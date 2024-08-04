@@ -1,7 +1,8 @@
 "use client";
 
 import { FC } from "react";
-import { ChevronBack } from "./icons";
+import { ChevronBack, GithubIcon } from "./icons";
+import Link from "next/link";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ const Layout: FC<LayoutProps> = ({
   return (
     <>
       <header className="bg-white/30 shadow-sm px-4 py-2 sticky top-0 backdrop-blur z-10">
-        <div className="w-full max-w-screen-xl m-auto">
+        <div className="w-full max-w-screen-xl m-auto flex items-center justify-between">
           <div className="flex flex-row items-center">
             {goBack && (
               <div
@@ -31,11 +32,19 @@ const Layout: FC<LayoutProps> = ({
             )}
             <h1 className="h4">{title}</h1>
           </div>
+
+          <Link
+            href="https://github.com/developaul/optimize-resume"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GithubIcon />
+          </Link>
         </div>
       </header>
       <main
         className={`py-16 px-4 bg-cover bg-center ${bodyClassName}`}
-        style={{ backgroundImage: "url('/background.png')" }}
+        style={{ backgroundImage: "url('/background.webp')" }}
       >
         {children}
       </main>

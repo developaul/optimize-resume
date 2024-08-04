@@ -1,4 +1,5 @@
 import { BehanceIcon, GithubIcon, LinkedinIcon } from "@/components/icons";
+import Link from "next/link";
 import { FC } from "react";
 
 interface MemberProps {
@@ -24,19 +25,19 @@ const TeamMemberCard: FC<MemberProps> = ({
       </div>
       <div className="flex flex-row gap-4">
         {linkedin && (
-          <a href={linkedin} target="_blank">
+          <Link href={linkedin} target="_blank" rel="noreferrer">
             <LinkedinIcon />
-          </a>
+          </Link>
         )}
         {github && (
-          <a href={github} target="_blank">
+          <Link href={github} target="_blank" rel="noreferrer">
             <GithubIcon />
-          </a>
+          </Link>
         )}
         {behance && (
-          <a href={behance} target="_blank">
+          <Link href={behance} target="_blank" rel="noreferrer">
             <BehanceIcon />
-          </a>
+          </Link>
         )}
       </div>
     </div>
