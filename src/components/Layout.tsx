@@ -24,7 +24,7 @@ const Layout: FC<LayoutProps> = ({
             {goBack && (
               <div
                 onClick={goBack}
-                className="bg-white border mr-4 flex justify-center items-center w-8 h-8 rounded-full"
+                className="bg-white border mr-4 flex justify-center items-center w-8 h-8 rounded-full cursor-pointer"
               >
                 <ChevronBack />
               </div>
