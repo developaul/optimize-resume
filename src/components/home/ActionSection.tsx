@@ -46,11 +46,13 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
             <FormField
               control={form.control}
               name="apikey"
+              disabled={form.formState.isSubmitting}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>API KEY</FormLabel>
                   <FormControl>
                     <Input
+                      disabled={form.formState.isSubmitting}
                       type="password"
                       placeholder="xxxx-xxxxx-xxxxx-xxxx"
                       {...field}
@@ -64,6 +66,7 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
             <FormField
               control={form.control}
               name="jobUrl"
+              disabled={form.formState.isSubmitting}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -109,6 +112,11 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
               <Button
                 className="bg-blue hover:bg-purple-500 text-neutral-900 font-bold"
                 type="submit"
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
+                loadingText="Validando..."
+                loading={form.formState.isSubmitting}
               >
                 Iniciar análisis
               </Button>

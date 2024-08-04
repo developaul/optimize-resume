@@ -14,7 +14,8 @@ interface RecommendationInput {
 
 const recommendationSchema = z.object({
   apiKey: z.string().min(1, { message: "API key is required" }),
-  jobUrl: z.string().min(1, { message: "Job URL is required" }),
+  jobUrl: z.string().optional(),
+  jobContent: z.string().optional(),
   // Base 64 encoded file
   base64URI: z.string().min(1, { message: "Document is required" }),
 });
@@ -30,33 +31,38 @@ class ValidatorController {
     { jobUrl, base64URI }: Pick<RecommendationInput, "jobUrl" | "base64URI">,
     context: IContext
   ) {
-    const [jobContent, cvContent] = await Promise.all([
-      scrapperController.getTextByUrl(jobUrl, context),
-      fileController.convertBase64PdfToText(base64URI),
-    ]);
+    try {
+      const [jobContent, cvContent] = await Promise.all([
+        scrapperController.getTextByUrl(jobUrl, context),
+        fileController.convertBase64PdfToText(base64URI),
+      ]);
 
-    const { model } = context;
+      const { model } = context;
 
-    const { object } = await generateObject({
-      model,
-      schema: z.object({
-        job: z.object({
-          isValid: z.boolean(),
-          error: z.string().optional(),
+      const { object } = await generateObject({
+        model,
+        schema: z.object({
+          job: z.object({
+            isValid: z.boolean(),
+            error: z.string().optional(),
+          }),
+          cv: z.object({
+            isValid: z.boolean(),
+            error: z.string().optional(),
+          }),
         }),
-        cv: z.object({
-          isValid: z.boolean(),
-          error: z.string().optional(),
-        }),
-      }),
-      prompt: `Validate if the essential content extracted from the job URL and CV document is appropriate for a job description and a CV, respectively, ignore the structure of the content and just check if it is a job and a CV.\n\nJob Content:\n${jobContent}\n\nCV Content:\n${cvContent}`,
-    });
+        prompt: `Validate if the essential content extracted from the job URL and CV document is appropriate for a job description and a CV, respectively, ignore the structure of the content and just check if it is a job and a CV.\n\nJob Content:\n${jobContent}\n\nCV Content:\n${cvContent}`,
+      });
 
-    const { job, cv } = object;
+      console.log("🚀 ~ ValidatorController ~ object:", object);
+      const { job, cv } = object;
 
-    if (!job.isValid) throw new Error("Invalid job content");
+      if (!job.isValid) throw new Error("Invalid job content");
 
-    if (!cv.isValid) throw new Error("Invalid CV content");
+      if (!cv.isValid) throw new Error("Invalid CV content");
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
