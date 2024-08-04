@@ -18,7 +18,7 @@ const recommendationSchema = z.object({
   base64URI: z.string().trim().min(1, { message: "Document is required" }),
 });
 
-const urlSchema = z.string().url();
+export const urlSchema = z.string().url();
 
 class ValidatorController {
   validateInput(input: RecommendationInput) {

@@ -4,20 +4,27 @@ import fileController from "../files";
 import { IContext } from "@/server/types";
 import scrapperController from "../scrapper";
 import CompatibilityAssessmentSchema from "@/server/schemas/compatibilityAssessment";
+import { urlSchema } from "../validator";
 
 interface AnalyzeArgs {
   base64URI: string;
-  jobUrl: string;
+  jobContent: string;
 }
 
 class CvAnalyzerController {
-  async analyze({ base64URI, jobUrl }: AnalyzeArgs, context: IContext) {
+  async analyze({ base64URI, jobContent }: AnalyzeArgs, context: IContext) {
     const cvHtml = await fileController.convertBase64PdfToText(base64URI);
 
-    const publicationHtml = await scrapperController.getTextByUrl(
-      jobUrl,
-      context
-    );
+    let publicationHtml = "";
+
+    if (urlSchema.safeParse(jobContent).success) {
+      publicationHtml = await scrapperController.getTextByUrl(
+        jobContent,
+        context
+      );
+    } else {
+      publicationHtml = jobContent;
+    }
 
     const prompt = `
 Eres especialista en reclutamiento y por eso te voy a pasar un currículum vitae (CV) estilo json y la descripción de una oferta de trabajo para que la evalúes y digas qué mejoras se le pueden hacer al CV para que pueda ser elegido. por esa oferta de trabajo. 

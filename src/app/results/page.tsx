@@ -41,8 +41,8 @@ export default function ResultPage() {
     "api_key",
     null
   );
-  const [jobUrl, , removeJobUrl] = useLocalStorage<Maybe<string>>(
-    "jobUrl",
+  const [jobContent, , removeJobContent] = useLocalStorage<Maybe<string>>(
+    "jobContent",
     null
   );
   const [base64URI, , removeBase64URI] = useLocalStorage<Maybe<string>>(
@@ -51,7 +51,7 @@ export default function ResultPage() {
   );
 
   const _handleReset = () => {
-    removeJobUrl();
+    removeJobContent();
     removeBase64URI();
     removeApiKey();
 
@@ -71,7 +71,7 @@ export default function ResultPage() {
   };
 
   useEffect(() => {
-    const paramsValid = Boolean(apiKey && jobUrl && base64URI);
+    const paramsValid = Boolean(apiKey && jobContent && base64URI);
 
     if (!paramsValid) {
       router.replace("/");
@@ -81,7 +81,7 @@ export default function ResultPage() {
     return () => {
       submit({
         apiKey,
-        jobUrl,
+        jobContent,
         base64URI,
         keyType: "open-ai",
       });

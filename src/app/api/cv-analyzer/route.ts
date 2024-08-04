@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
-    const { apiKey, jobUrl, base64URI, keyType } = await req.json();
+    const { apiKey, jobContent, base64URI, keyType } = await req.json();
 
     const headers = {
       apikey: apiKey,
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     const result = await cvAnalyzerController.analyze(
       {
-        jobUrl,
+        jobContent,
         base64URI,
       },
       context
