@@ -12,11 +12,6 @@ import UserProfileSchema from "@/server/schemas/userProfles";
 //   jobUrl: string;
 // }
 
-const model = {
-  GOOGLE_GENERATIVE_AI: google("models/gemini-1.5-pro-latest"),
-  OPENAI: openai("gpt-4o"),
-}[process.env.IA!];
-
 class GetUserProfileController {
   async analyze() {
     // const cvHtml = await fileController.convertBase64PdfToText(base64URI)
