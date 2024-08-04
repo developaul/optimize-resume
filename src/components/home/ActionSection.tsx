@@ -90,8 +90,12 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
                       label="Sube tu cv"
                       TxtHelper={
                         <div className="mt-3 flex flex-col gap-2 text-gray-500">
-                          <span className="small">Formato .pdf</span>
-                          <span className="small">Maximo 10 MB</span>
+                          <span className="small text-neutral-400">
+                            Formato .pdf
+                          </span>
+                          <span className="small text-neutral-400">
+                            Maximo 10 MB
+                          </span>
                         </div>
                       }
                       {...field}
@@ -102,7 +106,10 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
               )}
             />
             <div className="flex justify-center">
-              <Button className="bg-blue hover:bg-purple-500" type="submit">
+              <Button
+                className="bg-blue hover:bg-purple-500 text-neutral-900 font-bold"
+                type="submit"
+              >
                 Iniciar análisis
               </Button>
             </div>
