@@ -24,7 +24,8 @@ export const ActionFooter: FC<ActionFooterProps> = ({
       </Button>
       <p className="p">*Te recomendamos revisarlo antes de enviarlo</p>
       <Button
-        className="bg-white hover:bg-gray-100 text-black"
+        className="bg-white hover:bg-gray-100 text-black shadow-[0_2px_4px_rgba(30,41,59,0.25)]
+"
         onClick={onReset}
       >
         Haz una nueva consulta

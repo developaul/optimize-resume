@@ -57,7 +57,7 @@ export const Suggestions: FC<SuggestionsProps> = ({
             {workExperiences.map((workExperience) => {
               return (
                 <Section
-                  key={workExperience?.position}
+                  key={`${workExperience?.position}-${workExperience?.company}`}
                   primary={workExperience?.position ?? "Sin Nombre"}
                   secondary={`${workExperience?.company} | Febrero 2023 - Actualidad`}
                   achievements={[workExperience?.description ?? ""].filter(

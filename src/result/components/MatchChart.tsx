@@ -69,6 +69,7 @@ export function MatchChart({ isLoading = false, keywords }: MatchChartProps) {
             className="mx-auto aspect-square max-h-[250px]"
           >
             <RadialBarChart
+              title="Resultados"
               data={data}
               startAngle={225}
               endAngle={-45}
