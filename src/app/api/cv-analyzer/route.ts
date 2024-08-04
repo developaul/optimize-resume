@@ -11,9 +11,9 @@ export async function POST(req: Request) {
       apikey: apiKey,
       keytype: keyType,
     };
+
     const context = getContext(headers);
 
-    // Validate before generate context
     const result = await cvAnalyzerController.analyze(
       {
         jobUrl,
@@ -23,8 +23,6 @@ export async function POST(req: Request) {
     );
 
     return result.toTextStreamResponse();
-    // return result.toJsonResponse()
-    // return Response.json({ data: extractJson(result.text) }, { status: 200 });
   } catch (error: any) {
     console.log("error", error);
     return Response.json({ message: error.message }, { status: 500 });

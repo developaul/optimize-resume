@@ -1,20 +1,14 @@
-import { IContext } from "@/server/types";
-import fileController from "../files";
-import scrapperController from "../scrapper";
-import { openai } from "@ai-sdk/openai";
-import { google } from "@ai-sdk/google";
 import { streamObject } from "ai";
+
+import fileController from "../files";
+import { IContext } from "@/server/types";
+import scrapperController from "../scrapper";
 import CompatibilityAssessmentSchema from "@/server/schemas/compatibilityAssessment";
 
 interface AnalyzeArgs {
   base64URI: string;
   jobUrl: string;
 }
-
-const model = {
-  GOOGLE_GENERATIVE_AI: google("models/gemini-1.5-pro-latest"),
-  OPENAI: openai("gpt-4o"),
-}[process.env.IA!];
 
 class CvAnalyzerController {
   async analyze({ base64URI, jobUrl }: AnalyzeArgs, context: IContext) {
@@ -70,6 +64,8 @@ y el resultado lo vas a retornar en el siguiente formato como json, analizalo y 
 
   - suggestionStudy: // En base a los logs, lista un conjunto de temas de estudio que el candidato no respalda.
 `;
+
+    const { model } = context;
 
     const result = await streamObject({
       model: model!,

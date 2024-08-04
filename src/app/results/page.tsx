@@ -57,7 +57,7 @@ export default function ResultPage() {
   };
 
   const onDowloadCVhandler = () => {
-    getProfile({ apiKey, keyType: "geminis" });
+    getProfile({ apiKey, keyType: "open-ai" });
   };
 
   const onGoBack = () => {
@@ -81,7 +81,7 @@ export default function ResultPage() {
         apiKey,
         jobUrl,
         base64URI,
-        keyType: "geminis",
+        keyType: "open-ai",
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

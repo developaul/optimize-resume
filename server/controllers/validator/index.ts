@@ -35,9 +35,7 @@ class ValidatorController {
       fileController.convertBase64PdfToText(base64URI),
     ]);
 
-    const { apikey } = context.headers;
-    const openai = createOpenAI({ apiKey: apikey });
-    const model = openai("gpt-4o");
+    const { model } = context;
 
     const { object } = await generateObject({
       model,
