@@ -4,11 +4,11 @@ import { FC } from "react";
 
 import { UserProfile } from "@/server/types";
 
-import WorkExperiences from "./WorkExperiences";
-import PersonalInfo from "./PersonalInfo";
-import Educations from "./Educations";
-import Languages from "./Languages";
-import Skills from "./Skills";
+import WorkExperiences from "./components/WorkExperiences";
+import PersonalInfo from "./components/PersonalInfo";
+import Educations from "./components/Educations";
+import Languages from "./components/Languages";
+import Skills from "./components/Skills";
 
 import { LanguageProvider } from "./providers";
 

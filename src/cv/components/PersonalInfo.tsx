@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren, useMemo } from "react";
+import Link, { LinkProps } from "next/link";
 
 import { IPersonalInfo } from "@/server/types";
 import { getFullName } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
 
 const PersonalInfo: FC<IPersonalInfo> = ({
   firstName,

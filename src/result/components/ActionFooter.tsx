@@ -7,7 +7,7 @@ interface ActionFooterProps {
   isLoading?: boolean;
 }
 
-const ActionFooter: FC<ActionFooterProps> = ({
+export const ActionFooter: FC<ActionFooterProps> = ({
   onReset,
   onDownload,
   isLoading,
@@ -32,5 +32,3 @@ const ActionFooter: FC<ActionFooterProps> = ({
     </div>
   );
 };
-
-export default ActionFooter;

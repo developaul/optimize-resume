@@ -10,15 +10,17 @@ import { Maybe } from "@/server/types";
 
 import { Separator } from "@/components/ui/separator";
 
-import AnalysisTable from "./components/AnalysisTable";
-import ImportantToKnow from "./components/ImportantToKnow";
-import Recomendations from "./components/Recomendations";
-import Suggestions from "./components/Suggestions";
-import ActionFooter from "./components/ActionFooter";
-import MatchChart from "./components/MatchChart";
+import {
+  AnalysisTable,
+  ImportantToKnow,
+  MatchChart,
+  Recomendations,
+  Suggestions,
+  ActionFooter,
+} from "@/result/components";
 import Layout from "@/components/Layout";
-import CV from "@/components/cv";
-import useGetProfile from "./hooks/useGetProfile";
+import CV from "@/cv/CvContainer";
+import { useGetProfile } from "@/result/hooks";
 import { LoadingIcon } from "@/components/icons";
 
 export default function ResultPage() {

@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 
 import { IEducation, IEducations } from "@/server/types";
-import { LanguageContext } from "./providers";
+import { LanguageContext } from "../providers";
 
 interface EducationsProps {
   educations: IEducations;

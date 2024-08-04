@@ -1,4 +1,4 @@
-const useValidate = () => {
+export const useValidate = () => {
   const validate = async (data: any) => {
     const response = await fetch("/api/validator", {
       method: "POST",
@@ -17,5 +17,3 @@ const useValidate = () => {
     validate,
   };
 };
-
-export default useValidate;

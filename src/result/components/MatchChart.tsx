@@ -19,11 +19,22 @@ import { CompatibilityAssessment, PartialObject } from "@/server/types";
 
 interface MatchChartProps {
   isLoading?: boolean;
-  keywords?: PartialObject<CompatibilityAssessment['keywords']>
+  keywords?: PartialObject<CompatibilityAssessment["keywords"]>;
 }
 
-export default function MatchChart({ isLoading = false, keywords }: MatchChartProps) {
-  const data = [{ name: "result", value: Math.round((keywords ?? []).filter((keyword) => keyword?.inCv).length)/(keywords?.length || 1)* 100, fill: "var(--color-result)" }];
+export function MatchChart({ isLoading = false, keywords }: MatchChartProps) {
+  const data = [
+    {
+      name: "result",
+      value:
+        (Math.round(
+          (keywords ?? []).filter((keyword) => keyword?.inCv).length
+        ) /
+          (keywords?.length || 1)) *
+        100,
+      fill: "var(--color-result)",
+    },
+  ];
 
   const chartConfig = {
     result: {

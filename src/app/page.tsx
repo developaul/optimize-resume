@@ -1,17 +1,17 @@
 "use client";
 
 import { z } from "zod";
-import { useLocalStorage } from "usehooks-ts";
 import { useRouter } from "next/navigation";
+import { useLocalStorage } from "usehooks-ts";
 
-import ActionSection, { FormSchema } from "@/components/home/ActionSection";
 import Layout from "@/components/Layout";
-import Hero from "@/components/home/Hero";
-import About from "@/components/home/About";
+import Hero from "@/home/components/Hero";
+import About from "@/home/components/About";
+import ActionSection, { FormSchema } from "@/home/components/ActionSection";
 
-import { fileToBase64 } from "@/lib/utils";
 import { Maybe } from "@/server/types";
-import useValidate from "@/components/home/hooks/use-validate";
+import { fileToBase64 } from "@/lib/utils";
+import { useValidate } from "@/home/hooks";
 
 export default function HomePage() {
   const router = useRouter();
@@ -45,12 +45,14 @@ export default function HomePage() {
   };
 
   return (
-    <>
-      <Layout title="Optimize Resume">
-        <ActionSection onSubmit={handleSubmit} />
-        <Hero />
-        <About />
-      </Layout>
-    </>
+    <Layout title="Optimize Resume">
+      <h2 className="h2 mb-4 text-center">
+        Tu CV listo para conquistar los ATS
+      </h2>
+
+      <ActionSection onSubmit={handleSubmit} />
+      <Hero />
+      <About />
+    </Layout>
   );
 }

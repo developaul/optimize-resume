@@ -29,7 +29,7 @@ const Layout: FC<LayoutProps> = ({
                 <ChevronBack />
               </div>
             )}
-            <h4 className="h4">{title}</h4>
+            <h1 className="h4">{title}</h1>
           </div>
         </div>
       </header>
@@ -37,10 +37,6 @@ const Layout: FC<LayoutProps> = ({
         className={`py-16 px-4 bg-cover bg-center ${bodyClassName}`}
         style={{ backgroundImage: "url('/background.png')" }}
       >
-        <h2 className="h2 mb-4 text-center">
-          Tu CV listo para conquistar los ATS
-        </h2>
-
         {children}
       </main>
     </>
