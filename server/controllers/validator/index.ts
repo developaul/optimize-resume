@@ -1,4 +1,3 @@
-import { createOpenAI } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import { z } from "zod";
 
@@ -8,17 +7,18 @@ import fileController from "../files";
 
 interface RecommendationInput {
   apiKey: string;
-  jobUrl: string;
+  jobContent: string;
   base64URI: string;
 }
 
 const recommendationSchema = z.object({
-  apiKey: z.string().min(1, { message: "API key is required" }),
-  jobUrl: z.string().optional(),
-  jobContent: z.string().optional(),
+  apiKey: z.string().trim().min(1, { message: "API key is required" }),
+  jobContent: z.string().trim().min(1, { message: "Job content is required" }),
   // Base 64 encoded file
-  base64URI: z.string().min(1, { message: "Document is required" }),
+  base64URI: z.string().trim().min(1, { message: "Document is required" }),
 });
+
+const urlSchema = z.string().url();
 
 class ValidatorController {
   validateInput(input: RecommendationInput) {
@@ -28,14 +28,22 @@ class ValidatorController {
   }
 
   async validateJobAndCvContent(
-    { jobUrl, base64URI }: Pick<RecommendationInput, "jobUrl" | "base64URI">,
+    {
+      jobContent,
+      base64URI,
+    }: Pick<RecommendationInput, "jobContent" | "base64URI">,
     context: IContext
   ) {
     try {
-      const [jobContent, cvContent] = await Promise.all([
-        scrapperController.getTextByUrl(jobUrl, context),
-        fileController.convertBase64PdfToText(base64URI),
-      ]);
+      const promises = [fileController.convertBase64PdfToText(base64URI)];
+
+      if (urlSchema.safeParse(jobContent).success) {
+        promises.push(scrapperController.getTextByUrl(jobContent, context));
+      } else {
+        promises.push(Promise.resolve(jobContent));
+      }
+
+      const [cvContent, jobContentText] = await Promise.all(promises);
 
       const { model } = context;
 
@@ -51,10 +59,9 @@ class ValidatorController {
             error: z.string().optional(),
           }),
         }),
-        prompt: `Validate if the essential content extracted from the job URL and CV document is appropriate for a job description and a CV, respectively, ignore the structure of the content and just check if it is a job and a CV.\n\nJob Content:\n${jobContent}\n\nCV Content:\n${cvContent}`,
+        prompt: `Validate if the essential content extracted from the job URL and CV document is appropriate for a job description and a CV, respectively, ignore the structure of the content and just check if it is a job and a CV.\n\nJob Content:\n${jobContentText}\n\nCV Content:\n${cvContent}`,
       });
 
-      console.log("🚀 ~ ValidatorController ~ object:", object);
       const { job, cv } = object;
 
       if (!job.isValid) throw new Error("Invalid job content");

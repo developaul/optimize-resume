@@ -1,6 +1,8 @@
+import { FC } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Form,
   FormControl,
@@ -14,13 +16,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import DropZone from "./DropZone";
-import { FC } from "react";
 
 export const FormSchema = z.object({
-  apikey: z.string().min(10, {
+  apiKey: z.string().min(10, {
     message: "La api key parece ser muy corta",
   }),
-  jobUrl: z.string(),
+  jobContent: z.string(),
   cvFile: z.any(),
 });
 
@@ -32,8 +33,8 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      apikey: "",
-      jobUrl: "",
+      apiKey: "",
+      jobContent: "",
       cvFile: [],
     },
   });
@@ -45,9 +46,9 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="apikey"
+              name="apiKey"
               disabled={form.formState.isSubmitting}
-              render={({ field }) => (
+              render={({ field, formState }) => (
                 <FormItem>
                   <FormLabel>API KEY</FormLabel>
                   <FormControl>
@@ -58,14 +59,17 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>No sera guardada.</FormDescription>
-                  <FormMessage />
+                  {Boolean(formState.errors.apiKey) ? (
+                    <FormMessage />
+                  ) : (
+                    <FormDescription>No sera guardada.</FormDescription>
+                  )}
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="jobUrl"
+              name="jobContent"
               disabled={form.formState.isSubmitting}
               render={({ field }) => (
                 <FormItem>

@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useLocalStorage } from "usehooks-ts";
+import { toast } from "sonner";
 
 import Layout from "@/components/Layout";
 import Hero from "@/home/components/Hero";
@@ -19,28 +20,33 @@ export default function HomePage() {
   const { validate } = useValidate();
 
   const [, setApiKey] = useLocalStorage<Maybe<string>>("api_key", null);
-  const [, setJobUrl] = useLocalStorage<Maybe<string>>("jobUrl", null);
+  const [, setJobContent] = useLocalStorage<Maybe<string>>("jobContent", null);
   const [, setBase64URI] = useLocalStorage<Maybe<string>>("base64URI", null);
 
-  const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
+  const handleSubmit = async ({
+    cvFile,
+    jobContent,
+    apiKey,
+  }: z.infer<typeof FormSchema>) => {
     try {
-      const base64URI = await fileToBase64(data.cvFile[0]);
+      const base64URI = await fileToBase64(cvFile[0]);
 
-      await validate({
-        apiKey: data.apikey,
-        jobUrl: data.jobUrl,
+      const { success, message } = await validate({
+        apiKey,
+        jobContent,
         base64URI,
         keyType: "open-ai",
       });
 
-      setApiKey(data.apikey);
-      setJobUrl(data.jobUrl);
+      if (!success) throw new Error(message);
+
+      setApiKey(apiKey);
+      setJobContent(jobContent);
       setBase64URI(base64URI);
 
       router.push("/results");
-    } catch (error) {
-      // TODO: Add sonner
-      console.error(error);
+    } catch (error: any) {
+      toast.error(error.message ?? "Something went wrong");
     }
   };
 

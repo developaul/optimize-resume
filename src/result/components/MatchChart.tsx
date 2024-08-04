@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   Label,
   PolarAngleAxis,
@@ -22,26 +23,29 @@ interface MatchChartProps {
   keywords?: PartialObject<CompatibilityAssessment["keywords"]>;
 }
 
+const chartConfig = {
+  result: {
+    label: "result",
+    color: "hsl(var(--chart-3))",
+  },
+} satisfies ChartConfig;
+
 export function MatchChart({ isLoading = false, keywords }: MatchChartProps) {
+  const value = useMemo(() => {
+    return (
+      (Math.round((keywords ?? []).filter((keyword) => keyword?.inCv).length) /
+        (keywords?.length || 1)) *
+      100
+    ).toFixed(0);
+  }, [keywords]);
+
   const data = [
     {
       name: "result",
-      value:
-        (Math.round(
-          (keywords ?? []).filter((keyword) => keyword?.inCv).length
-        ) /
-          (keywords?.length || 1)) *
-        100,
+      value,
       fill: "var(--color-result)",
     },
   ];
-
-  const chartConfig = {
-    result: {
-      label: "result",
-      color: "hsl(var(--chart-3))",
-    },
-  } satisfies ChartConfig;
 
   const Loader = () => {
     return (

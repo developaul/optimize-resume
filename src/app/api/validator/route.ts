@@ -4,7 +4,7 @@ import validatorController from "@/server/controllers/validator";
 export async function POST(req: Request) {
   try {
     /** Need to receive base64URI because useObject manage application/json content */
-    const { apiKey, jobUrl, base64URI, keyType } = await req.json();
+    const { apiKey, jobContent, base64URI, keyType } = await req.json();
 
     const headers = {
       apikey: apiKey,
@@ -15,18 +15,21 @@ export async function POST(req: Request) {
 
     validatorController.validateInput({
       apiKey,
-      jobUrl,
+      jobContent,
       base64URI,
     });
 
     await validatorController.validateJobAndCvContent(
-      { jobUrl, base64URI },
+      { jobContent, base64URI },
       context
     );
 
     return Response.json({ message: "ok", success: true }, { status: 200 });
   } catch (error: any) {
     console.log("🚀 ~ POST ~ error:", error);
-    return Response.json({ message: error.message }, { status: 400 });
+    return Response.json(
+      { message: error.message, success: false },
+      { status: 400 }
+    );
   }
 }
