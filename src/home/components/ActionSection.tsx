@@ -80,7 +80,7 @@ const ActionSection: FC<ActionSectionProps> = ({ onSubmit }) => {
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <SelectTrigger>
+                              <SelectTrigger aria-label="Seleciona un modelo">
                                 <SelectValue placeholder="Seleciona un modelo" />
                               </SelectTrigger>
                               <SelectContent>

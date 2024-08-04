@@ -37,6 +37,7 @@ const Layout: FC<LayoutProps> = ({
             href="https://github.com/developaul/optimize-resume"
             target="_blank"
             rel="noreferrer"
+            aria-label="Github del proyecto"
           >
             <GithubIcon />
           </Link>
