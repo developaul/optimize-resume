@@ -38,7 +38,7 @@ export default function ResultPage() {
   });
 
   const [apiKey, , removeApiKey] = useLocalStorage<Maybe<string>>(
-    "api_key",
+    "apiKey",
     null
   );
   const [jobContent, , removeJobContent] = useLocalStorage<Maybe<string>>(
@@ -76,21 +76,21 @@ export default function ResultPage() {
   };
 
   useEffect(() => {
-    const paramsValid = Boolean(apiKey && jobContent && base64URI);
+    const paramsValid = Boolean(apiKey && jobContent && base64URI && keyType);
 
     if (!paramsValid) {
       router.replace("/");
 
       return;
     }
-    return () => {
-      submit({
-        apiKey,
-        jobContent,
-        base64URI,
-        keyType,
-      });
-    };
+
+    submit({
+      apiKey,
+      jobContent,
+      base64URI,
+      keyType,
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
