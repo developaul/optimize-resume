@@ -64,7 +64,7 @@ export default function ResultPage() {
   };
 
   const onDowloadCVhandler = () => {
-    getProfile({ apiKey, keyType });
+    getProfile({ apiKey, keyType, jobContent, base64URI });
   };
 
   const onGoBack = () => {
@@ -84,12 +84,14 @@ export default function ResultPage() {
       return;
     }
 
-    submit({
-      apiKey,
-      jobContent,
-      base64URI,
-      keyType,
-    });
+    return () => {
+      submit({
+        apiKey,
+        jobContent,
+        base64URI,
+        keyType,
+      });
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

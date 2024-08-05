@@ -7,15 +7,14 @@ import UserProfileSchema from "@/server/schemas/userProfles";
 
 const getTargetElement = () => document.getElementById("content-id");
 
-// TODO: Change to fetch
-// TODO: Change to useRef to manage references to the element
+
 export const useGetProfile = () => {
   const {
     object: userProfile,
     submit: getProfile,
     isLoading: isProfileLoading,
   } = useObject({
-    api: "/api/getProfile",
+    api: "/api/get-profile",
     schema: UserProfileSchema,
   });
 
