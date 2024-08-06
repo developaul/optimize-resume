@@ -1,6 +1,9 @@
 import getContext from "@/server/context";
 import profileController from "@/server/controllers/profile";
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   try {
     const { apiKey, keyType, jobContent, base64URI } = await req.json();
