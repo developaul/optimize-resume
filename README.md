@@ -41,11 +41,44 @@ Optimize Resume was created to address the common challenge job seekers face: ge
 
 #### System Context Diagram
 
-[Space for System Context Diagram]
+```mermaid
+C4Context
+title System Context diagram for Optimize Resume
+
+Person(user, "User", "An individual optimizing their resume to pass ATS filters")
+
+System(optimize_resume, "Optimize Resume Platform", "A platform that helps users optimize their resumes for ATS systems")
+
+System_Ext(external_service, "Jina AI Reader", "Fetches job content based on provided URL using advanced AI")
+
+Rel(user, optimize_resume, "Interacts with", "HTTPS")
+UpdateRelStyle(user, optimize_resume, $offsetX="-40" $offsetY="30")
+Rel(optimize_resume, external_service, "Retrieves job content from", "JSON/HTTPS")
+UpdateRelStyle(optimize_resume, external_service, $offsetX="-40" $offsetY="40")
+```
 
 #### Container Diagram
 
-[Space for Container Diagram]
+```mermaid
+C4Container
+title Container diagram for Optimize Resume
+
+Person(user, "User", "An individual optimizing their resume to pass ATS filters")
+
+Container_Boundary(c1, "Optimize Resume Platform") {
+Container(spa, "Web Application", "TypeScript, Next.js, Vercel AI SDK", "Delivers Resume AI functionalities via the user's browser")
+Container(backend_api, "Recommendation API", "TypeScript, Next.js, Vercel AI SDK", "Provides resume optimization and recommendation services via API")
+}
+
+System_Ext(external_service, "Jina AI Reader", "Fetches job content based on provided URL using advanced AI")
+
+Rel(user, spa, "Interacts with", "HTTPS")
+UpdateRelStyle(user, spa, $offsetY="-25")
+Rel(spa, backend_api, "Requests recommendations from", "JSON/HTTPS")
+UpdateRelStyle(spa, backend_api, $offsetX="-80"$offsetY="40")
+
+Rel(backend_api, external_service, "Retrieves job content from", "JSON/HTTPS")
+```
 
 ## Team 👥
 
