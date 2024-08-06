@@ -6,14 +6,14 @@ Optimize Resume is an AI-powered platform designed to enhance your resume and in
 
 ## Table of Contents
 
-1. [About the Project](#about-the-project)
-2. [Features](#features)
-3. [How It Works](#how-it-works)
-4. [System Architecture](#system-architecture)
-5. [Team](#team)
-6. [Getting Started](#getting-started)
-7. [Contributing](#contributing)
-8. [License](#license)
+1. [About the Project](#about-the-project-)
+2. [Features](#features-)
+3. [How It Works](#how-it-works-)
+4. [System Architecture](#system-architecture-)
+5. [Team](#team-)
+6. [Getting Started](#getting-started-)
+7. [Contributing](#contributing-)
+8. [License](#license-)
 
 ## About the Project 🌟
 
