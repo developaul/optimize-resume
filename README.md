@@ -58,7 +58,32 @@ Our diverse team of professionals brought this project to life:
 
 ## Getting Started 🚀
 
-[Instructions for setting up the project locally]
+You will need:
+
+- [Node.js 20+ (recommended 20.14 LTS)](https://nodejs.org/en/).
+- [Git](https://git-scm.com/).
+
+1. [Clone](https://github.com/developaul/optimize-resume.git) this repository locally:
+
+```bash
+git clone git@github.com:developaul/optimize-resume.git
+```
+
+2. Install dependencies:
+
+```bash
+# Install bun globally if you don't have it:
+npm install -g bun
+
+# and install dependencies:
+bun install
+```
+
+3. Run the development server:
+
+```bash
+bun run dev
+```
 
 ## Contributing 🤝
 
