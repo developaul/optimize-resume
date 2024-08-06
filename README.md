@@ -43,18 +43,21 @@ Optimize Resume was created to address the common challenge job seekers face: ge
 
 ```mermaid
 C4Context
-title System Context diagram for Optimize Resume
+title System Context Diagram for Optimize Resume
 
 Person(user, "User", "An individual optimizing their resume to pass ATS filters")
 
-System(optimize_resume, "Optimize Resume Platform", "A platform that helps users optimize their resumes for ATS systems")
+System(optimize_resume, "Optimize Resume Platform", "A platform for optimizing resumes to pass ATS filters")
 
 System_Ext(external_service, "Jina AI Reader", "Fetches job content based on provided URL using advanced AI")
+System_Ext(ai_provider, "AI Provider", "Provides AI models and services used by the platform")
 
-Rel(user, optimize_resume, "Interacts with", "HTTPS")
-UpdateRelStyle(user, optimize_resume, $offsetX="-40" $offsetY="30")
+Rel(user, optimize_resume, "Uses", "HTTPS")
+UpdateRelStyle(user, optimize_resume, $offsetX="20" $offsetY="20")
 Rel(optimize_resume, external_service, "Retrieves job content from", "JSON/HTTPS")
-UpdateRelStyle(optimize_resume, external_service, $offsetX="-40" $offsetY="40")
+UpdateRelStyle(optimize_resume, external_service, $offsetX="-50" $offsetY="40")
+Rel(optimize_resume, ai_provider, "Utilizes AI models from", "HTTPS")
+UpdateRelStyle(optimize_resume, ai_provider, $offsetY="30")
 ```
 
 #### Container Diagram
@@ -66,11 +69,12 @@ title Container diagram for Optimize Resume
 Person(user, "User", "An individual optimizing their resume to pass ATS filters")
 
 Container_Boundary(c1, "Optimize Resume Platform") {
-Container(spa, "Web Application", "TypeScript, Next.js, Vercel AI SDK", "Delivers Resume AI functionalities via the user's browser")
-Container(backend_api, "Recommendation API", "TypeScript, Next.js, Vercel AI SDK", "Provides resume optimization and recommendation services via API")
+    Container(spa, "Web Application", "TypeScript, Next.js, Vercel AI SDK", "Delivers Resume AI functionalities via the user's browser")
+    Container(backend_api, "Recommendation API", "TypeScript, Next.js, Vercel AI SDK", "Provides resume optimization and recommendation services via API")
 }
 
 System_Ext(external_service, "Jina AI Reader", "Fetches job content based on provided URL using advanced AI")
+System_Ext(ai_provider, "AI Provider", "Provides AI models and services used by the platform")
 
 Rel(user, spa, "Interacts with", "HTTPS")
 UpdateRelStyle(user, spa, $offsetY="-25")
@@ -78,6 +82,7 @@ Rel(spa, backend_api, "Requests recommendations from", "JSON/HTTPS")
 UpdateRelStyle(spa, backend_api, $offsetX="-80"$offsetY="40")
 
 Rel(backend_api, external_service, "Retrieves job content from", "JSON/HTTPS")
+Rel(backend_api, ai_provider, "Utilizes AI models from", "HTTPS")
 ```
 
 ## Team 👥
