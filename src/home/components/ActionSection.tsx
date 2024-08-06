@@ -37,7 +37,7 @@ export const FormSchema = z.object({
 
 const modelTypes = [
   { value: "open-ai", label: "OpenAI" },
-  { value: "gemini", label: "Gemini" },
+  // { value: "gemini", label: "Gemini" },
 ];
 
 interface ActionSectionProps {
