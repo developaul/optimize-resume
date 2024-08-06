@@ -141,6 +141,7 @@ export default function ResultPage() {
         <ActionFooter
           onReset={_handleReset}
           isLoading={isProfileLoading}
+          userProfileExist={userProfile !== undefined}
           onDownload={onDowloadCVhandler}
         />
 
