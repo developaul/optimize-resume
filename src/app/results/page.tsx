@@ -84,14 +84,12 @@ export default function ResultPage() {
       return;
     }
 
-    return () => {
-      submit({
-        apiKey,
-        jobContent,
-        base64URI,
-        keyType,
-      });
-    };
+    submit({
+      apiKey,
+      jobContent,
+      base64URI,
+      keyType,
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
