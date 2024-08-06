@@ -4,4 +4,3 @@ export * from "./ImportantToKnow";
 export * from "./MatchChart";
 export * from "./Recomendations";
 export * from "./Suggestions";
-export * from "./MatchPosition";

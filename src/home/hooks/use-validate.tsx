@@ -1,6 +1,6 @@
 export const useValidate = () => {
   const validate = async (data: any) => {
-    const response = await fetch("/api/validator", {
+    const response = await fetch(`/api/validator`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

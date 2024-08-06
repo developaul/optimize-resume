@@ -1,12 +1,12 @@
 import getContext from "@/server/context";
-import cvAnalyzerController from "@/server/controllers/cv_analyzer";
+import profileController from "@/server/controllers/profile";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
-    const { apiKey, jobContent, base64URI, keyType } = await req.json();
+    const { apiKey, keyType, jobContent, base64URI } = await req.json();
 
     const headers = {
       apikey: apiKey,
@@ -15,15 +15,12 @@ export async function POST(req: Request) {
 
     const context = getContext(headers);
 
-    const result = await cvAnalyzerController.analyze(
-      {
-        jobContent,
-        base64URI,
-      },
+    const profile = await profileController.getProfile(
+      { jobContent, base64URI },
       context
     );
 
-    return result.toTextStreamResponse();
+    return Response.json(profile, { status: 200 });
   } catch (error: any) {
     console.log("error", error);
     return Response.json({ message: error.message }, { status: 500 });

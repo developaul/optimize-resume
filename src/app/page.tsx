@@ -19,7 +19,7 @@ export default function HomePage() {
 
   const { validate } = useValidate();
 
-  const [, setApiKey] = useLocalStorage<Maybe<string>>("api_key", null);
+  const [, setApiKey] = useLocalStorage<Maybe<string>>("apiKey", null);
   const [, setJobContent] = useLocalStorage<Maybe<string>>("jobContent", null);
   const [, setBase64URI] = useLocalStorage<Maybe<string>>("base64URI", null);
   const [, setKeyType] = useLocalStorage<Maybe<string>>("keyType", null);
